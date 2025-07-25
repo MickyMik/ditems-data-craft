@@ -6,9 +6,9 @@ const About = () => {
     { name: "Python", level: 95, icon: Code },
     { name: "SQL", level: 90, icon: Database },
     { name: "Apache Spark", level: 85, icon: Zap },
-    { name: "AWS/GCP", level: 88, icon: Cloud },
+    { name: "Azure", level: 88, icon: Cloud },
     { name: "Data Visualization", level: 92, icon: BarChart3 },
-    { name: "Machine Learning", level: 80, icon: Cpu },
+    { name: "Devops", level: 80, icon: Cpu },
   ];
 
   return (

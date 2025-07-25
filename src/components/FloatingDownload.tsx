@@ -19,7 +19,7 @@ const FloatingDownload = () => {
     // In a real application, this would trigger the actual file download
     // For now, we'll create a dummy PDF download
     const link = document.createElement('a');
-    link.href = '#'; // Replace with actual resume PDF URL
+    link.href = 'https://github.com/MickyMik/ditems-data-craft/blob/main/resume/CV_METINHOUE_FR.pdf'; // Replace with actual resume PDF URL
     link.download = 'Ditems_Data_Engineer_Resume.pdf';
     document.body.appendChild(link);
     link.click();

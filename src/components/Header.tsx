@@ -36,10 +36,17 @@ const Header = () => {
       }`}>
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div 
-            className="text-2xl font-bold text-primary cursor-pointer"
+            className="flex items-center space-x-3 cursor-pointer"
             onClick={() => scrollToSection("hero")}
           >
-            Ditems
+            <img 
+              src="/lovable-uploads/daa6a904-2dd3-483e-865a-6cc892381a2c.png" 
+              alt="Ditems Logo" 
+              className="h-10 w-auto"
+            />
+            <span className="text-2xl font-bold text-primary">
+              Ditems
+            </span>
           </div>
 
           {/* Desktop Navigation */}

@@ -7,7 +7,7 @@ const About = () => {
     { name: "Azure", level: 90, icon: Cloud },
     { name: "Data Visualization", level: 80, icon: BarChart3 },
     { name: "DataOps", level: 90, icon: Cpu },
-    { name: "Docker", level: 90, icon: computer },
+    { name: "Docker", level: 90, icon: laptop-minimal },
     { name: "Python", level: 75, icon: Code },
     { name: "SQL", level: 95, icon: Database },
   ];

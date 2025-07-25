@@ -42,8 +42,8 @@ const Contact = () => {
     {
       icon: Phone,
       label: "Phone",
-      value: "+33 1 23 45 67 89",
-      href: "tel:+33123456789"
+      value: "+33 6 52 93 61 26",
+      href: "tel:+33652936126"
     },
     {
       icon: MapPin,
@@ -57,13 +57,13 @@ const Contact = () => {
     {
       icon: Linkedin,
       label: "LinkedIn",
-      href: "#",
+      href: "https://www.linkedin.com/in/michael-m-87177793/",
       color: "hover:text-blue-600"
     },
     {
       icon: Github,
       label: "GitHub",
-      href: "#",
+      href: "https://github.com/MickyMik",
       color: "hover:text-gray-900"
     },
     {

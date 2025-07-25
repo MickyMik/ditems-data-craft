@@ -5,7 +5,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/', // Ajouté pour GitHub Page
+  base: '/', // Ajouté pour GitHub Pages
   server: {
     host: "::",
     port: 8080,

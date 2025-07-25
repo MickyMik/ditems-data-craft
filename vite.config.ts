@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/ditems-data-craft/', // Ajouté pour GitHub Page
+  base: '/', // Ajouté pour GitHub Page
   server: {
     host: "::",
     port: 8080,

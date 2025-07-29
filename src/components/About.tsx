@@ -19,9 +19,17 @@ const About = () => {
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">About Me</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Passionate data engineer with 5+ years of experience building robust data pipelines, 
-              implementing real-time analytics solutions, and driving data-driven decision making 
-              across various industries.
+            I am an experienced Data Engineer and future Data Architect with over a decade of expertise in designing
+            and implementing end-to-end data and BI platforms. Certified and specialized in Microsoft technologies 
+            (on-premises and cloud), I help organizations build robust data pipelines, implement real-time analytics, 
+            and deliver insightful reporting to empower data-driven decision-making.
+
+            With strong expertise in DataOps practices using Azure DevOps, I ensure seamless integration, automated 
+            deployments, and continuous delivery for data solutions, enhancing reliability and scalability 
+            across the data lifecycle.
+
+            Passionate about turning complex data into actionable insights, I thrive in building scalable, automated, 
+            and high-performing solutions that deliver real business value.
             </p>
           </div>
 
@@ -29,10 +37,18 @@ const About = () => {
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-navy mb-4">My Journey</h3>
               <p className="text-muted-foreground">
-                Started as a software developer, I discovered my passion for data engineering 
-                while working on complex analytics projects. I specialize in designing scalable 
-                data architectures that can handle millions of records while maintaining 
-                high performance and reliability.
+              I started my career as a BI Developer, building reports and dashboards that transformed raw data into 
+              actionable insights. Along the way, I embraced DataOps practices, leveraging automation and Azure DevOps 
+              to streamline data workflows and implement CI/CD for data solutions.
+
+              This foundation led me to become a Tech Lead in Data, where I guided teams in developing modern data platforms 
+              and implementing best practices for scalability, performance, and governance.
+
+              Currently, I work as a Data Engineer, specializing in Microsoft technologies (on-premises and Azure cloud) 
+              to design and deploy end-to-end data and BI platforms, implement real-time analytics, and build robust data pipelines.
+
+              I am now focused on advancing toward my next goal: becoming a Data Architect, passionate about designing scalable, 
+              high-performing architectures that power data-driven decision-making.
               </p>
               <p className="text-muted-foreground">
                 My expertise spans across the entire data lifecycle - from ingestion and 

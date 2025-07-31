@@ -70,4 +70,8 @@ Yes, you can!
 
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
+## SENDING EMAIL
+
+To send Email i use https://www.emailjs.com/ api
+
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)

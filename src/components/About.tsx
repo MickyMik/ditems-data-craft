@@ -3,11 +3,12 @@ import { Database, Cloud, BarChart3, Cpu, Code, Zap , Laptop } from "lucide-reac
 
 const About = () => {
   const skills = [
-    { name: "Apache Spark", level: 75, icon: Zap },
+    
     { name: "Azure", level: 90, icon: Cloud },
     { name: "Data Visualization", level: 80, icon: BarChart3 },
     { name: "DataOps", level: 90, icon: Cpu },
     { name: "Docker", level: 90, icon: Laptop },
+    { name: "MS Fabrics", level: 70, icon: Zap },
     { name: "Python", level: 75, icon: Code },
     { name: "SQL", level: 95, icon: Database },
   ];
@@ -106,9 +107,9 @@ const About = () => {
             <Card className="text-center hover:shadow-hover transition-all duration-300 transform hover:-translate-y-2">
               <CardContent className="p-8">
                 <BarChart3 className="w-12 h-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-navy mb-3">Analytics & ML</h3>
+                <h3 className="text-xl font-bold text-navy mb-3">Business Intelligence & analytics</h3>
                 <p className="text-muted-foreground">
-                  Implementing machine learning models and advanced analytics for predictive insights.
+                  Implementing Business Intelligence models and advanced analytics for data-driven insights that empower innovation and growth.
                 </p>
               </CardContent>
             </Card>

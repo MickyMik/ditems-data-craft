@@ -270,7 +270,7 @@ const Contact = () => {
                       <a
                         key={index}
                         href={social.href}
-                        className={w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-navy transition-all transform hover:scale-110 ${social.color}}
+                        className={`w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-navy transition-all transform hover:scale-110 ${social.color}`}
                         aria-label={social.label}
                       >
                         <social.icon className="w-5 h-5" />

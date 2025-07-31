@@ -21,4 +21,13 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+   optimizeDeps: {
+    include: ["emailjs-com"], // ✅ Ajouté pour forcer Vite à inclure emailjs-com
+  },
+  build: {
+    rollupOptions: {
+      // Evite les erreurs si emailjs-com fait référence à des libs Node
+      external: [],
+    },
+  },
 }));

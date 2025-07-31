@@ -10,7 +10,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import emailjs from "emailjs-com";
 
-// Form validation schema
+// ✅ EmailJS Configuration (Replace with your actual IDs)
+const SERVICE_ID = "service_t6so8r5"; // Remplace par ton Service ID EmailJS
+const TEMPLATE_ID = "template_meqf9bp"; // Remplace par ton Template ID EmailJS
+const PUBLIC_KEY = "IobH6oMwMiIETnEVh"; // Remplace par ta clé publique EmailJS
+
+// ✅ Validation Schema avec Zod // Form validation schema
 const contactFormSchema = z.object({
   name: z.string()
     .min(2, "Name must be at least 2 characters")
@@ -45,7 +50,7 @@ const Contact = () => {
 
   const handleSubmit = async (data: ContactFormData) => {
     try {
-      // Empêche spam en vérifiant le délai // Rate limiting check (simple client-side implementation)
+      // ✅ Anti-Spam: Vérifie délai entre envois // Empêche spam en vérifiant le délai // Rate limiting check (simple client-side implementation)
       const lastSubmission = localStorage.getItem("lastContactSubmission");
       const now = Date.now();
       if (lastSubmission && now - parseInt(lastSubmission) < 60000) {
@@ -57,7 +62,7 @@ const Contact = () => {
         return;
       }
 
-      // Sanitize data (additional protection)
+      // ✅ Nettoyage des données
       const sanitizedData = {
         name: data.name.trim(),
         email: data.email.trim().toLowerCase(),
@@ -65,23 +70,22 @@ const Contact = () => {
         message: data.message.trim()
       };
 
-      // Appel EmailJS
+      // ✅ Envoi via EmailJS
       await emailjs.send(
-        "service_t6so8r5", // Remplace par ton Service ID
-        "template_meqf9bp", // Remplace par ton Template ID
+        SERVICE_ID,
+        TEMPLATE_ID,
         {
-          name: data.name,
-          email: data.email,
-          subject: data.subject,
-          message: data.message
+          name: sanitizedData.name,
+          email: sanitizedData.email,
+          subject: sanitizedData.subject,
+          message: sanitizedData.message
         },
-        "IobH6oMwMiIETnEVh" // Remplace par ta clé publique
+        PUBLIC_KEY
       );
 
-      // Store submission timestamp
+      // ✅ Sauvegarde du timestamp pour éviter spam
       localStorage.setItem("lastContactSubmission", now.toString());
 
-// Here you would typically send the form data to your backend
       toast({
         title: "Message sent!",
         description: "Thank you for your message. I'll get back to you soon."
@@ -233,7 +237,7 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            {/* Contact Information */}
+            {/* Contact Info + Social Links */}
             <div className="space-y-8">
               <Card className="shadow-card">
                 <CardContent className="p-8">

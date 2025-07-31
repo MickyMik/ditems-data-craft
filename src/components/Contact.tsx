@@ -8,6 +8,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import emailjs from "emailjs-com";
 
 // Form validation schema
 const contactFormSchema = z.object({
@@ -31,7 +32,7 @@ type ContactFormData = z.infer<typeof contactFormSchema>;
 
 const Contact = () => {
   const { toast } = useToast();
-  
+
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
@@ -44,8 +45,8 @@ const Contact = () => {
 
   const handleSubmit = async (data: ContactFormData) => {
     try {
-      // Rate limiting check (simple client-side implementation)
-      const lastSubmission = localStorage.getItem('lastContactSubmission');
+      // Empêche spam en vérifiant le délai // Rate limiting check (simple client-side implementation)
+      const lastSubmission = localStorage.getItem("lastContactSubmission");
       const now = Date.now();
       if (lastSubmission && now - parseInt(lastSubmission) < 60000) {
         toast({
@@ -64,15 +65,28 @@ const Contact = () => {
         message: data.message.trim()
       };
 
+      // Appel EmailJS
+      await emailjs.send(
+        "service_t6so8r5", // Remplace par ton Service ID
+        "template_meqf9bp", // Remplace par ton Template ID
+        {
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message
+        },
+        "IobH6oMwMiIETnEVh" // Remplace par ta clé publique
+      );
+
       // Store submission timestamp
-      localStorage.setItem('lastContactSubmission', now.toString());
-      
-      // Here you would typically send the form data to your backend
+      localStorage.setItem("lastContactSubmission", now.toString());
+
+// Here you would typically send the form data to your backend
       toast({
         title: "Message sent!",
-        description: "Thank you for your message. I'll get back to you soon.",
+        description: "Thank you for your message. I'll get back to you soon."
       });
-      
+
       form.reset();
     } catch (error) {
       toast({
@@ -172,7 +186,7 @@ const Contact = () => {
                         )}
                       />
                     </div>
-                    
+
                     <FormField
                       control={form.control}
                       name="subject"
@@ -186,7 +200,7 @@ const Contact = () => {
                         </FormItem>
                       )}
                     />
-                    
+
                     <FormField
                       control={form.control}
                       name="message"
@@ -194,21 +208,21 @@ const Contact = () => {
                         <FormItem>
                           <FormLabel>Message</FormLabel>
                           <FormControl>
-                            <Textarea 
+                            <Textarea
                               rows={6}
                               placeholder="Tell me about your project, challenges you're facing, or how we can work together..."
-                              {...field} 
+                              {...field}
                             />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                    
-                    <Button 
-                      type="submit" 
-                      variant="contact" 
-                      size="lg" 
+
+                    <Button
+                      type="submit"
+                      variant="contact"
+                      size="lg"
                       className="w-full"
                       disabled={form.formState.isSubmitting}
                     >
@@ -251,13 +265,12 @@ const Contact = () => {
                     I'm passionate about solving complex data challenges and would love to hear about your project. 
                     Whether you need consultation, development, or just want to discuss ideas, I'm here to help.
                   </p>
-                  
                   <div className="flex space-x-4">
                     {socialLinks.map((social, index) => (
                       <a
                         key={index}
                         href={social.href}
-                        className={`w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-navy transition-all transform hover:scale-110 ${social.color}`}
+                        className={w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-navy transition-all transform hover:scale-110 ${social.color}}
                         aria-label={social.label}
                       >
                         <social.icon className="w-5 h-5" />

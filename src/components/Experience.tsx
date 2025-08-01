@@ -19,7 +19,7 @@ const Experience = () => {
         "Wrote technical specifications",
         "Created release pipelines using Azure DevOps"
       ],
-      technologies: ["Python", "MS FABRICS", "ADF", "SYNAPSE", "AZ DEVOPS", "AZ IA SEARCH" , "AZ SQL DB", "POSTMAN"]
+      technologies: ["PYTHON", "MS FABRICS", "ADF", "SYNAPSE", "AZ DEVOPS", "AZ IA SEARCH" , "AZ SQL DB", "POSTMAN"]
     },
     {
       title: "TECH LEAD DATA MSBI – AZURE DATA ENGINEER – AZURE DATAOPS",
@@ -43,7 +43,7 @@ const Experience = () => {
         "Developed Power BI reports",
         "Developed tabular cubes",
       ],
-      technologies: ["Python", "SSIS", "SSRS", "ADF", "DOCKER", "DEVOPS", "SSAS", "POWER BI","TSQLT", "DATABRICKS", "SQL SERVER", "MYSQL", "SQLITE", "AZ SQL DB", "POSTMAN"]
+      technologies: ["PYTHON", "SSIS", "SSRS", "ADF", "DOCKER", "DEVOPS", "SSAS", "POWER BI","TSQLT", "DATABRICKS", "SQL SERVER", "MYSQL", "SQLITE", "AZ SQL DB", "POSTMAN"]
     },
     {
       title: "SENIOR MSBI DEVELOPPER - AZURE DATA ENGINEER",

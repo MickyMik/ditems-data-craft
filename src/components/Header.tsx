@@ -63,7 +63,7 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <a href="https://github.com/MickyMik/ditems-data-craft/blob/main/resume/CV_METINHOUE_FR.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/resume/CV_METINHOUE_FR.pdf" download target="_blank" rel="noopener noreferrer">
             <Button variant="download" size="sm" className="hidden md:flex">
               <Download className="w-4 h-4" />
               Resume

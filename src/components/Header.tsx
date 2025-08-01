@@ -94,7 +94,7 @@ const Header = () => {
                 {item.label}
               </button>
             ))}
-            <a href="https://raw.githubusercontent.com/MickyMik/ditems-data-craft/main/resume/CV_METINHOUE_FR.pdf" download target="_blank" rel="noopener noreferrer"></a>
+            <a href="https://raw.githubusercontent.com/MickyMik/ditems-data-craft/main/resume/CV_METINHOUE_FR.pdf" download target="_blank" rel="noopener noreferrer">
             <Button variant="download" size="lg">
               <Download className="w-5 h-5" />
               Download Resume

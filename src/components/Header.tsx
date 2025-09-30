@@ -37,15 +37,17 @@ const Header = () => {
       }`}>
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div 
-            className="flex items-center space-x-3 cursor-pointer"
+            className="flex items-center gap-3 cursor-pointer group transition-all duration-300 hover:scale-105"
             onClick={() => scrollToSection("hero")}
           >
-            <img 
-              src="/lovable-uploads/daa6a904-2dd3-483e-865a-6cc892381a2c.png" 
-              alt="Ditems Logo" 
-              className="h-10 w-auto"
-            />
-            <span className="text-2xl font-bold text-primary">
+            <div className="relative">
+              <img 
+                src="/lovable-uploads/daa6a904-2dd3-483e-865a-6cc892381a2c.png" 
+                alt="Ditems Logo" 
+                className="h-12 w-12 object-contain transition-transform duration-300 group-hover:rotate-6"
+              />
+            </div>
+            <span className="text-2xl font-bold text-primary transition-colors duration-300 group-hover:text-primary/80">
               Ditems
             </span>
           </div>

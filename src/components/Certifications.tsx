@@ -15,27 +15,27 @@ const Certifications = () => {
     {
       title: "Microsoft Certified: Azure Fundamentals",
       issuer: "Microsoft", 
-      date: "2023",
+      date: "2020",
       credentialId: "AZ-900",
       description: "Foundational knowledge of cloud services and how those services are provided with Microsoft Azure.",
       skills: ["Azure Services", "Cloud Computing", "Azure Architecture"]
     },
     {
-      title: "Microsoft Certified: Power BI Data Analyst Associate",
-      issuer: "Microsoft",
-      date: "2023", 
-      credentialId: "PL-300",
-      description: "Expertise in designing and building scalable data models, cleaning and transforming data, and enabling advanced analytic capabilities.",
-      skills: ["Power BI", "DAX", "Power Query", "Data Modeling"]
+      title: "Microsoft Certified: Implementing a Data Warehouse",
+      issuer: "Microsoft", 
+      date: "2019",
+      credentialId: "70-767",
+      description: "Skilled in designing, building, and optimizing enterprise-scale data warehouse solutions.",
+      skills: ["Design, implement, and maintain data warehouses", "ETL Processes", "Data Quality Services (DQS)", "Data Analysis Expressions (DAX)", "Multidimensional Expressions (MDX)", "Data Modeling", "Data Governance"]
     },
     {
-      title: "SQL Server Database Administration",
-      issuer: "Microsoft",
-      date: "2022",
-      credentialId: "70-764",
-      description: "Advanced skills in SQL Server database administration, backup and recovery, security, and performance optimization.",
-      skills: ["SQL Server", "Database Administration", "Performance Tuning", "Security"]
-    }
+      title: "Microsoft Certified: Querying Sql Server 2012/2014",
+      issuer: "Microsoft", 
+      date: "2018",
+      credentialId: "70-461",
+      description: "Proven expertise in writing queries, managing data, and optimizing SQL Server performance.",
+      skills: ["SSMS", "SSRS", "SSIS", "SSAS", "T-SQL", "Database Management"]
+    },
   ];
 
   return (

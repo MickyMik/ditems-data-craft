@@ -40,11 +40,11 @@ const Header = () => {
             className="flex items-center gap-3 cursor-pointer group transition-all duration-300 hover:scale-105"
             onClick={() => scrollToSection("hero")}
           >
-            <div className="relative">
+            <div className="relative p-2 bg-primary/10 rounded-2xl backdrop-blur-sm border border-primary/20 transition-all duration-300 group-hover:bg-primary/15 group-hover:border-primary/30">
               <img 
                 src="/lovable-uploads/daa6a904-2dd3-483e-865a-6cc892381a2c.png" 
                 alt="Ditems Logo" 
-                className="h-12 w-12 object-contain transition-transform duration-300 group-hover:rotate-6"
+                className="h-10 w-10 object-contain transition-transform duration-300 group-hover:rotate-6"
               />
             </div>
             <span className="text-2xl font-bold text-primary transition-colors duration-300 group-hover:text-primary/80">

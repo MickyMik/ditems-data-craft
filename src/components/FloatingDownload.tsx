@@ -2,12 +2,20 @@ import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { useState, useEffect } from "react";
 
+const BASE_URL = "https://raw.githubusercontent.com/MickyMik/ditems-data-craft/main/resume/";
+
+const getCvUrl = () => {
+  const isFrench = navigator.language.startsWith("fr");
+  return isFrench
+    ? `${BASE_URL}CV_METINHOUE_FR.pdf`
+    : `${BASE_URL}CV_METINHOUE_EN.pdf`;
+};
+
 const FloatingDownload = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show button when user scrolls past hero section
       setIsVisible(window.scrollY > window.innerHeight / 2);
     };
 
@@ -16,11 +24,11 @@ const FloatingDownload = () => {
   }, []);
 
   const handleDownload = () => {
-    // In a real application, this would trigger the actual file download
-    // For now, we'll create a dummy PDF download
-    const link = document.createElement('a');
-    link.href = 'https://raw.githubusercontent.com/MickyMik/ditems-data-craft/main/resume/CV_METINHOUE_FR.pdf'; // Replace with actual resume PDF URL
-    link.download = 'Ditems_Data_Engineer_Resume.pdf';
+    const link = document.createElement("a");
+    link.href = getCvUrl();
+    link.download = navigator.language.startsWith("fr")
+      ? "CV_METINHOUE_FR.pdf"
+      : "CV_METINHOUE_EN.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

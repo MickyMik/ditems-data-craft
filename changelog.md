@@ -110,6 +110,27 @@ Voir `features.md` — section "Fonctionnalités planifiées".
 
 ---
 
+## 2026-05-05 — CV bilingue : sélection automatique FR/EN selon la langue du navigateur
+
+### Contexte
+Le CV n'était servi qu'en français, même pour les visiteurs anglophones.
+
+### Changements
+- **Modifié** : `src/components/FloatingDownload.tsx` — détection `navigator.language`, téléchargement du bon PDF selon langue
+- **Modifié** : `src/components/Header.tsx` — idem, bouton Resume desktop + mobile
+- **Modifié** : `features.md` — FloatingDownload et Version EN CV PDF mis à jour
+
+### Logique ajoutée
+`navigator.language.startsWith("fr")` → `CV_METINHOUE_FR.pdf`, sinon → `CV_METINHOUE_EN.pdf`
+
+### Action requise
+Ajouter `resume/CV_METINHOUE_EN.pdf` dans le dépôt pour activer complètement la version anglaise.
+
+### Impact sur la dette technique
+- Résolu : dette #5 (CV FR uniquement) — logique implémentée, en attente du fichier PDF EN
+
+---
+
 ## Format pour les entrées futures
 
 ```markdown

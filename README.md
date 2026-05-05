@@ -79,3 +79,4 @@ Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-trick
 ## COPYRIGHT
 
 Thks to reference me when you clone my repo 
+test

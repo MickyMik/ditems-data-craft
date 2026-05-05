@@ -1,7 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Database, Cloud, BarChart3, Cpu, Code, Zap , Laptop } from "lucide-react";
+import useIntersection from "@/hooks/use-intersection";
 
 const About = () => {
+  const [skillsRef, skillsVisible] = useIntersection();
+  const [strengthsRef, strengthsVisible] = useIntersection();
   const skills = [
     
     { name: "Azure", level: 90, icon: Cloud },
@@ -58,7 +61,7 @@ const About = () => {
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-card">
+            <div ref={skillsRef} className="bg-white rounded-2xl p-8 shadow-card">
               <h3 className="text-xl font-bold text-navy mb-6">Technical Skills</h3>
               <div className="space-y-4">
                 {skills.map((skill, index) => (
@@ -71,9 +74,12 @@ const About = () => {
                       <span className="text-sm text-muted-foreground">{skill.level}%</span>
                     </div>
                     <div className="w-full bg-blue-light h-2 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-gradient-primary rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${skill.level}%` }}
+                      <div
+                        className="h-full bg-gradient-primary rounded-full"
+                        style={{
+                          width: skillsVisible ? `${skill.level}%` : "0%",
+                          transition: `width 1s ease-out ${index * 0.1}s`,
+                        }}
                       ></div>
                     </div>
                   </div>
@@ -83,36 +89,28 @@ const About = () => {
           </div>
 
           {/* Key Strengths */}
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="text-center hover:shadow-hover transition-all duration-300 transform hover:-translate-y-2">
-              <CardContent className="p-8">
-                <Database className="w-12 h-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-navy mb-3">Data Architecture</h3>
-                <p className="text-muted-foreground">
-                  Designing scalable and robust data architectures that grow with your business needs.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center hover:shadow-hover transition-all duration-300 transform hover:-translate-y-2">
-              <CardContent className="p-8">
-                <Zap className="w-12 h-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-navy mb-3">Real-time Processing</h3>
-                <p className="text-muted-foreground">
-                  Building high-performance streaming pipelines for real-time analytics and insights.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center hover:shadow-hover transition-all duration-300 transform hover:-translate-y-2">
-              <CardContent className="p-8">
-                <BarChart3 className="w-12 h-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-navy mb-3">Business Intelligence & analytics</h3>
-                <p className="text-muted-foreground">
-                  Implementing Business Intelligence models and advanced analytics for data-driven insights that empower innovation and growth.
-                </p>
-              </CardContent>
-            </Card>
+          <div ref={strengthsRef} className="grid md:grid-cols-3 gap-8">
+            {[
+              { icon: Database, title: "Data Architecture", text: "Designing scalable and robust data architectures that grow with your business needs." },
+              { icon: Zap, title: "Real-time Processing", text: "Building high-performance streaming pipelines for real-time analytics and insights." },
+              { icon: BarChart3, title: "Business Intelligence & analytics", text: "Implementing Business Intelligence models and advanced analytics for data-driven insights that empower innovation and growth." },
+            ].map(({ icon: Icon, title, text }, index) => (
+              <Card
+                key={index}
+                className="text-center hover:shadow-hover transition-shadow duration-300 transform hover:-translate-y-2"
+                style={{
+                  opacity: strengthsVisible ? 1 : 0,
+                  transform: strengthsVisible ? "translateY(0)" : "translateY(24px)",
+                  transition: `opacity 0.5s ease-out ${index * 0.15}s, transform 0.5s ease-out ${index * 0.15}s`,
+                }}
+              >
+                <CardContent className="p-8">
+                  <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <h3 className="text-xl font-bold text-navy mb-3">{title}</h3>
+                  <p className="text-muted-foreground">{text}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </div>

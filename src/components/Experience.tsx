@@ -1,8 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Calendar } from "lucide-react";
+import useIntersection from "@/hooks/use-intersection";
 
 const Experience = () => {
+  const [listRef, listVisible] = useIntersection();
   const experiences = [
     {
       title: "JUNIOR CLOUD DATA ARCHITECT – AZURE DATA ENGINEER",
@@ -118,9 +120,17 @@ const Experience = () => {
             </p>
           </div>
 
-          <div className="space-y-8">
+          <div ref={listRef} className="space-y-8">
             {experiences.map((exp, index) => (
-              <Card key={index} className="hover:shadow-hover transition-all duration-300 transform hover:-translate-y-1">
+              <Card
+                key={index}
+                className="hover:shadow-hover transition-shadow duration-300"
+                style={{
+                  opacity: listVisible ? 1 : 0,
+                  transform: listVisible ? "translateY(0)" : "translateY(24px)",
+                  transition: `opacity 0.5s ease-out ${index * 0.1}s, transform 0.5s ease-out ${index * 0.1}s`,
+                }}
+              >
                 <CardContent className="p-8">
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                     <div className="mb-4 md:mb-0">

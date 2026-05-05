@@ -1,8 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Award, Calendar } from "lucide-react";
+import useIntersection from "@/hooks/use-intersection";
 
 const Certifications = () => {
+  const [gridRef, gridVisible] = useIntersection();
   const certifications = [
     {
       title: "Microsoft Certified: Azure Data Engineer Associate",
@@ -49,9 +51,17 @@ const Certifications = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {certifications.map((cert, index) => (
-              <Card key={index} className="hover:shadow-hover transition-all duration-300 transform hover:-translate-y-1">
+              <Card
+                key={index}
+                className="hover:shadow-hover transition-shadow duration-300"
+                style={{
+                  opacity: gridVisible ? 1 : 0,
+                  transform: gridVisible ? "translateY(0)" : "translateY(24px)",
+                  transition: `opacity 0.5s ease-out ${index * 0.12}s, transform 0.5s ease-out ${index * 0.12}s`,
+                }}
+              >
                 <CardContent className="p-6">
                   <div className="flex items-start space-x-4 mb-4">
                     <div className="p-2 bg-primary/10 rounded-lg">

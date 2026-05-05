@@ -110,6 +110,24 @@ Voir `features.md` — section "Fonctionnalités planifiées".
 
 ---
 
+## 2026-05-05 — Animations au scroll (IntersectionObserver)
+
+### Contexte
+Les sections étaient statiques à l'entrée dans le viewport. Les barres de compétences n'étaient pas animées.
+
+### Changements
+- **Créé** : `src/hooks/use-intersection.tsx` — hook `useIntersection` basé sur IntersectionObserver, one-shot, fallback navigateurs anciens
+- **Modifié** : `src/components/About.tsx` — barres de compétences animées (0% → niveau, stagger ×100ms) + cards strengths fade-in staggerées
+- **Modifié** : `src/components/Experience.tsx` — cards fade-in + slide-up staggerées (×100ms)
+- **Modifié** : `src/components/Certifications.tsx` — cards fade-in + slide-up staggerées (×120ms)
+- **Modifié** : `src/components/Work.tsx` — cards fade-in + slide-up staggerées (×150ms)
+
+### Impact sur la dette technique
+- Résolu : dette #1 (animations au scroll manquantes)
+- Résolu : dette #2 (barres de compétences statiques)
+
+---
+
 ## 2026-05-05 — CV bilingue : sélection automatique FR/EN selon la langue du navigateur
 
 ### Contexte

@@ -210,9 +210,12 @@ Bouton circulaire flottant bas-droite, visible après scroll > 50% hauteur d'éc
 - Click → téléchargement depuis GitHub raw URL (FR uniquement)
 - Animation `animate-float` + `shadow-glow`
 
+**Comportement langue**
+- `navigator.language.startsWith("fr")` → `CV_METINHOUE_FR.pdf`
+- Sinon → `CV_METINHOUE_EN.pdf`
+
 **Contraintes / Dette**
-- URL hardcodée FR uniquement
-- Pas de version EN du CV
+- `CV_METINHOUE_EN.pdf` à ajouter dans `resume/` (fichier manquant)
 
 ---
 
@@ -349,9 +352,10 @@ Révélation des sections et animation des barres de compétences au scroll.
 
 ### Version EN du CV PDF
 
-**Statut** : Planifié
+**Statut** : Partiellement implémenté — en attente du fichier PDF
 
 **Description**
-Ajouter `CV_METINHOUE_EN.pdf` dans `resume/` et adapter `FloatingDownload.tsx` et `Header.tsx` pour servir la version selon la langue active.
+La logique de sélection de langue est en place dans `FloatingDownload.tsx` et `Header.tsx` (via `navigator.language`).
+Il reste à ajouter `CV_METINHOUE_EN.pdf` dans `resume/` pour activer complètement la fonctionnalité.
 
-**Impacte** : `FloatingDownload.tsx`, `Header.tsx`, `resume/`
+**Impacte** : `resume/` (fichier PDF à ajouter)

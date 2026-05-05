@@ -2,6 +2,15 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, Menu, X } from "lucide-react";
 
+const BASE_URL = "https://raw.githubusercontent.com/MickyMik/ditems-data-craft/main/resume/";
+
+const getCvUrl = () => {
+  const isFrench = navigator.language.startsWith("fr");
+  return isFrench
+    ? `${BASE_URL}CV_METINHOUE_FR.pdf`
+    : `${BASE_URL}CV_METINHOUE_EN.pdf`;
+};
+
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -66,7 +75,7 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <a href="https://raw.githubusercontent.com/MickyMik/ditems-data-craft/main/resume/CV_METINHOUE_FR.pdf" download target="_blank" rel="noopener noreferrer">
+            <a href={getCvUrl()} download target="_blank" rel="noopener noreferrer">
             <Button variant="download" size="sm" className="hidden md:flex">
               <Download className="w-4 h-4" />
               Resume
@@ -97,7 +106,7 @@ const Header = () => {
                 {item.label}
               </button>
             ))}
-            <a href="https://raw.githubusercontent.com/MickyMik/ditems-data-craft/main/resume/CV_METINHOUE_FR.pdf" download target="_blank" rel="noopener noreferrer">
+            <a href={getCvUrl()} download target="_blank" rel="noopener noreferrer">
             <Button variant="download" size="lg">
               <Download className="w-5 h-5" />
               Download Resume

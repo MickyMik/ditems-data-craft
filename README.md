@@ -1,82 +1,156 @@
-# Welcome to your Lovable project
+# Ditems — Portfolio CV · Michael Metinhoue
 
-## Project info
+Live website: **[ditems.fr](https://ditems.fr)**
 
-**URL**: https://lovable.dev/projects/b919b6d3-7b7f-44c3-a33e-9f0871ef7c21
+---
 
-## How can I edit this code?
+## What is this?
 
-There are several ways of editing your application.
+This is Michael's online CV — a single-page website that presents his professional profile as a Data Engineer & Cloud Architect. Visitors can read about his experience, certifications, and projects, then send him a message directly from the site.
 
-**Use Lovable**
+There is **no server, no database, no login**. Everything runs in the visitor's browser. The only external service used is [EmailJS](https://www.emailjs.com/) to send contact form messages.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b919b6d3-7b7f-44c3-a33e-9f0871ef7c21) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## How it works — the big picture
 
-**Use your preferred IDE**
+```
+You write code → push to main → GitHub builds the site → GitHub Pages serves it at ditems.fr
+```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. The source code lives in this repository (branch `dev` for development, `main` for production).
+2. Every push to `main` triggers an automated build via **GitHub Actions** (see `.github/workflows/deploy.yml`).
+3. The build tool (**Vite**) compiles all the TypeScript + React code into plain HTML/CSS/JS files inside a `dist/` folder.
+4. Those files are automatically pushed to the `gh-pages` branch.
+5. GitHub Pages reads that branch and serves it at `ditems.fr`.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+The CV PDF is served directly from GitHub's raw file URL — no hosting setup needed.
 
-Follow these steps:
+---
+
+## Tech stack — explained simply
+
+| What you see | What it actually is |
+|---|---|
+| The UI framework | **React 18** — components that render the page |
+| The build tool | **Vite** — compiles and bundles the code fast |
+| The language | **TypeScript** — JavaScript with type safety |
+| The styling | **Tailwind CSS** — utility classes, no separate CSS files |
+| The UI components | **shadcn/ui** — pre-built accessible components (buttons, cards, etc.) |
+| The forms | **React Hook Form + Zod** — form state management + input validation |
+| The email sender | **EmailJS** — sends emails from the browser without a backend |
+| The translations | **i18next** — FR/EN language support, auto-detected from the browser |
+
+---
+
+## Project structure — what's where
+
+```
+ditems-data-craft/
+├── src/
+│   ├── pages/
+│   │   └── Index.tsx         ← The one and only page (assembles all sections)
+│   ├── components/
+│   │   ├── Header.tsx        ← Top navigation bar
+│   │   ├── Hero.tsx          ← Big intro section with name/title
+│   │   ├── About.tsx         ← Bio + skill bars + certifications preview
+│   │   ├── Experience.tsx    ← Professional history (6 roles)
+│   │   ├── Certifications.tsx← 4 Microsoft certifications
+│   │   ├── Work.tsx          ← Project showcase
+│   │   ├── Contact.tsx       ← Contact form (sends via EmailJS)
+│   │   └── FloatingDownload.tsx ← Floating CV download button
+│   ├── i18n/
+│   │   └── locales/
+│   │       ├── en.json       ← English texts
+│   │       └── fr.json       ← French texts
+│   └── utils/
+│       └── security.ts       ← Input sanitization helpers
+├── resume/
+│   └── CV_METINHOUE_FR.pdf   ← The downloadable CV
+├── .github/workflows/
+│   └── deploy.yml            ← Automated deployment to GitHub Pages
+├── architecture.md           ← Full technical documentation
+├── features.md               ← Feature inventory and known issues
+└── changelog.md              ← History of changes
+```
+
+---
+
+## How to run it locally
+
+You need **Node.js** installed (v18 or later). If you don't have it: [nodejs.org](https://nodejs.org).
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# 1. Clone the repo
+git clone https://github.com/MickyMik/ditems-data-craft.git
+cd ditems-data-craft
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# 2. Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 3. Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Then open your browser at `http://localhost:8080`. The page reloads automatically when you save a file.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+## How to deploy
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+**Automatic** — just push to `main`:
 
-## What technologies are used for this project?
+```sh
+git checkout main
+git merge dev
+git push origin main
+```
 
-This project is built with:
+GitHub Actions does the rest. The site is live at `ditems.fr` within ~2 minutes.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+**To check deployment status**: go to the repository → Actions tab → watch the latest workflow run.
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/b919b6d3-7b7f-44c3-a33e-9f0871ef7c21) and click on Share -> Publish.
+## How the contact form works
 
-## Can I connect a custom domain to my Lovable project?
+The form does **not** use a backend server. Instead:
 
-Yes, you can!
+1. The visitor fills in the form (name, email, subject, message).
+2. The browser validates the inputs (format check, length, anti-spam 60s cooldown).
+3. On submit, **EmailJS** sends the message directly from the browser to Michael's inbox using pre-configured API keys.
+4. No data is stored anywhere — it goes straight to email.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+EmailJS credentials (in `src/components/Contact.tsx`):
+- These keys are intentionally public — EmailJS is designed to work this way client-side.
 
-## SENDING EMAIL
+---
 
-To send Email i use https://www.emailjs.com/ api
+## Language support
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+The site supports **French and English**. The language is automatically detected from the visitor's browser settings.
 
-## COPYRIGHT
+- If the browser language is French → site shows in French
+- Otherwise → site shows in English
 
-Thks to reference me when you clone my repo 
-test
+Translations live in `src/i18n/locales/en.json` and `fr.json`.
+
+> Note: some sections (Experience, Certifications) are currently hardcoded in English only — full translation is planned.
+
+---
+
+## Git branches
+
+| Branch | Purpose |
+|---|---|
+| `dev` | Active development — make changes here |
+| `main` | Production — every push here triggers a deployment |
+| `gh-pages` | Auto-generated build artifact — do not edit manually |
+| `backup/ameliorations-2026-05-05` | Saved refactor attempt (not merged) |
+
+---
+
+## Copyright
+
+If you clone or reuse this project, please credit the original author.
+Contact: [admin.demarches@ditems.fr](mailto:admin.demarches@ditems.fr)

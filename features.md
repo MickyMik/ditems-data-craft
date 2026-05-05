@@ -81,7 +81,7 @@ Azure (90%), Data Visualization (80%), DataOps (90%), Docker (90%), MS Fabrics (
 **Contraintes / Dette**
 - Liens Credly invalides (`https://www.credly.com/badges/your-badge-id`)
 - Certifications preview ne correspondent pas aux certifications réelles de `Certifications.tsx`
-- Barres de compétences statiques (pas d'animation au scroll)
+- Barres de compétences animées au scroll via `useIntersection` (largeur 0% → niveau réel, stagger par index)
 
 ---
 
@@ -104,7 +104,7 @@ Liste chronologique de 6 expériences professionnelles. Cards avec titre, entrep
 
 **Contraintes / Dette**
 - Données hardcodées en anglais (non traduit via i18n)
-- Pas d'animation au scroll
+- Animations au scroll implémentées via `useIntersection` (fade-in + slide-up staggeré)
 
 ---
 
@@ -125,7 +125,7 @@ Liste chronologique de 6 expériences professionnelles. Cards avec titre, entrep
 
 **Contraintes / Dette**
 - Pas de liens vers les badges Credly
-- Pas d'animation au scroll
+- Animations au scroll implémentées via `useIntersection` (fade-in + slide-up staggeré)
 - Données hardcodées en anglais
 
 ---

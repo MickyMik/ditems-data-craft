@@ -2,8 +2,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
+import useIntersection from "@/hooks/use-intersection";
 
 const Work = () => {
+  const [gridRef, gridVisible] = useIntersection();
   const projects = [
     {
       title: "Real-time Analytics Platform",
@@ -61,9 +63,17 @@ const Work = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div ref={gridRef} className="grid lg:grid-cols-2 gap-8">
             {projects.map((project, index) => (
-              <Card key={index} className="overflow-hidden hover:shadow-hover transition-all duration-300 transform hover:-translate-y-2">
+              <Card
+                key={index}
+                className="overflow-hidden hover:shadow-hover transition-shadow duration-300"
+                style={{
+                  opacity: gridVisible ? 1 : 0,
+                  transform: gridVisible ? "translateY(0)" : "translateY(24px)",
+                  transition: `opacity 0.5s ease-out ${index * 0.15}s, transform 0.5s ease-out ${index * 0.15}s`,
+                }}
+              >
                 <div className="aspect-video bg-gradient-primary relative overflow-hidden">
                   <div className="absolute inset-0 bg-navy/20 flex items-center justify-center">
                     <div className="text-white text-center">

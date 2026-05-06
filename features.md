@@ -167,7 +167,7 @@ Galerie de 3 projets en grille 2 colonnes. Cards avec bandeau gradient, titre, d
 - `SectionTitle` + `TiltCard` (intensity=6) + `.shimmer-card`
 - Fade-in + translateY stagger ×150ms via `useIntersection`
 
-**CTA bas de page** : card gradient avec bouton "Let's Work Together" → scroll `#contact`
+~~**CTA bas de page**~~ : supprimé (redondant avec la section Contact)
 
 ---
 

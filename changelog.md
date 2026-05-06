@@ -324,6 +324,19 @@ Le site était statique. Objectif : rendre l'expérience "hyper dynamique" tout 
 
 ---
 
+## 2026-05-06 10h30 — Suppression bloc CTA "Interested in Collaboration?" dans Work
+
+### Contexte
+Le bloc CTA en bas de la section Work ("Interested in Collaboration? ... Start a Conversation") était redondant avec la section Contact.
+
+### Changements
+- **Modifié** : `src/components/Work.tsx` — suppression du `<div className="text-center mt-16">` contenant la Card CTA gradient + bouton "Start a Conversation"
+
+### Commit(s)
+- `c39afcd` — fix: remove CTA block from Work section (branche : dev)
+
+---
+
 ## Format pour les entrées futures
 
 ```markdown

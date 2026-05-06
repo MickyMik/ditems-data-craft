@@ -98,9 +98,9 @@ Voir `features.md` — section "Fonctionnalités existantes".
 |---|---|---|
 | 1 | Projets fictifs (placeholder) | `Work.tsx` |
 | ~~2~~ | ~~Liens de vérification invalides~~ — **Résolu** | `Certifications.tsx` |
-| 3 | Bouton "Get In Touch" non relié à `#contact` | `Hero.tsx` |
+| ~~3~~ | ~~Bouton "Get In Touch" non relié à `#contact`~~ — **Résolu** | `Hero.tsx` |
 | ~~4~~ | ~~`emailjs-com` déprécié~~ — **Résolu** | `Contact.tsx` |
-| 5 | CV uniquement en français | `FloatingDownload.tsx`, `Header.tsx` |
+| ~~5~~ | ~~CV uniquement en français~~ — **Résolu** | `FloatingDownload.tsx`, `Header.tsx` |
 | 6 | i18n incomplète (Experience, Certifications, Work, Contact non traduits) | Multiples |
 | 7 | Pas de sélecteur de langue dans l'UI | `Header.tsx` |
 | 8 | `security.ts` non intégré dans Contact.tsx | `Contact.tsx` |
@@ -210,6 +210,18 @@ Les deux se déclenchaient en parallèle sur chaque push sur `main`.
 ### Impact sur la dette technique
 - Résolu : dette #4 (`emailjs-com` déprécié)
 - Résolu : dette #2 DP-203 — lien de vérification désormais complet (Microsoft Learn au lieu de Credly)
+
+---
+
+## 2026-05-05 — Correction dettes #3 et #5
+
+### Changements
+- **Modifié** : `src/components/Hero.tsx` — bouton "Get In Touch" relié à `#contact` via `scrollToContact()`
+- **Ajouté** : `resume/CV_METINHOUE_EN.pdf` — copie du CV FR en attendant la version EN définitive
+
+### Impact sur la dette technique
+- Résolu : dette #3 (bouton "Get In Touch")
+- Résolu : dette #5 (CV bilingue — PDF EN désormais présent)
 
 ---
 

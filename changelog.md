@@ -171,6 +171,27 @@ Les cards de certifications affichaient un `credentialId` mais aucun lien cliqua
 
 ---
 
+## 2026-05-05 — Correction du déploiement GitHub Pages
+
+### Contexte
+Le déploiement échouait avec l'erreur :
+`HttpError: Deployment request failed due to in progress deployment`
+
+### Cause
+Conflit entre deux mécanismes de déploiement simultanés :
+- Le workflow utilisait `peaceiris/actions-gh-pages@v3` (push sur branche `gh-pages`)
+- GitHub Pages était configuré en mode **"GitHub Actions"** (déclenche `actions/deploy-pages` automatiquement)
+Les deux se déclenchaient en parallèle sur chaque push sur `main`.
+
+### Changements
+- **Modifié** : `.github/workflows/deploy.yml` — migration vers `actions/deploy-pages@v5` (méthode officielle)
+  - Ajout `concurrency: group: "pages"` pour bloquer les déploiements simultanés
+  - Permissions correctes : `pages: write` + `id-token: write`
+  - Actions mises à jour : `checkout@v4`, `setup-node@v4` (Node 20), `configure-pages@v5`, `upload-pages-artifact@v3`
+  - Suppression de `peaceiris/actions-gh-pages@v3`
+
+---
+
 ## Format pour les entrées futures
 
 ```markdown

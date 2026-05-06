@@ -119,3 +119,83 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+/* Animated hero gradient */
+.bg-gradient-hero-animated {
+  background: linear-gradient(270deg,
+    hsl(233 64% 14%),
+    hsl(207 73% 35%),
+    hsl(233 64% 20%),
+    hsl(207 73% 44%)
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 10s ease infinite;
+}
+
+/* Shimmer card effect */
+.shimmer-card {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%) skewX(-15deg);
+  pointer-events: none;
+}
+.shimmer-card:hover::after {
+  animation: shimmer 0.65s ease-out;
+}
+
+/* Floating label inputs */
+.floating-field {
+  position: relative;
+}
+.floating-field input,
+.floating-field textarea {
+  padding-top: 1.5rem;
+  padding-bottom: 0.375rem;
+}
+.floating-field label {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+.floating-field textarea ~ label {
+  top: 1.25rem;
+  transform: none;
+}
+.floating-field input:focus ~ label,
+.floating-field input:not(:placeholder-shown) ~ label,
+.floating-field textarea:focus ~ label,
+.floating-field textarea:not(:placeholder-shown) ~ label {
+  top: 0.375rem;
+  transform: none;
+  font-size: 0.7rem;
+  color: hsl(var(--primary));
+  font-weight: 500;
+}
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--blue-bright)));
+  z-index: 9999;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 8px hsl(var(--primary) / 0.6);
+}

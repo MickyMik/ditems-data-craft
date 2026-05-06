@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
@@ -100,6 +101,30 @@ export default {
 				'slide-up': {
 					'0%': { transform: 'translateY(30px)', opacity: '0' },
 					'100%': { transform: 'translateY(0)', opacity: '1' }
+				},
+				'shimmer': {
+					'0%': { transform: 'translateX(-100%) skewX(-15deg)' },
+					'100%': { transform: 'translateX(250%) skewX(-15deg)' }
+				},
+				'blink': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0' }
+				},
+				'gradient-shift': {
+					'0%, 100%': { backgroundPosition: '0% 50%' },
+					'50%': { backgroundPosition: '100% 50%' }
+				},
+				'underline-grow': {
+					'0%': { width: '0%' },
+					'100%': { width: '100%' }
+				},
+				'count-up': {
+					'0%': { opacity: '0', transform: 'translateY(10px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' }
+				},
+				'timeline-grow': {
+					'0%': { height: '0%' },
+					'100%': { height: '100%' }
 				}
 			},
 			animation: {
@@ -107,7 +132,11 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'float': 'float 3s ease-in-out infinite',
 				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
-				'slide-up': 'slide-up 0.6s ease-out'
+				'slide-up': 'slide-up 0.6s ease-out',
+				'shimmer': 'shimmer 0.65s ease-out',
+				'blink': 'blink 1s step-end infinite',
+				'gradient-shift': 'gradient-shift 8s ease infinite',
+				'count-up': 'count-up 0.4s ease-out',
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
@@ -121,5 +150,5 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [tailwindAnimate],
 } satisfies Config;

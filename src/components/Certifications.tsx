@@ -1,10 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Award, Calendar, ExternalLink } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import useIntersection from "@/hooks/use-intersection";
 
 const Certifications = () => {
+  const { t } = useTranslation();
   const [gridRef, gridVisible] = useIntersection();
+
   const certifications = [
     {
       title: "Microsoft Certified: Azure Data Engineer Associate",
@@ -49,10 +52,8 @@ const Certifications = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">Certifications</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Professional certifications that validate my expertise in data engineering and cloud technologies.
-            </p>
+            <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">{t("certifications.title")}</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("certifications.subtitle")}</p>
           </div>
 
           <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -80,7 +81,7 @@ const Certifications = () => {
                           <span>{cert.date}</span>
                         </div>
                         <div className="text-sm">
-                          <span className="font-medium">ID:</span> {cert.credentialId}
+                          <span className="font-medium">{t("certifications.credentialId")}</span> {cert.credentialId}
                         </div>
                       </div>
                     </div>
@@ -96,12 +97,12 @@ const Certifications = () => {
                       className="inline-flex items-center space-x-1 text-sm text-primary hover:underline mb-4"
                     >
                       <ExternalLink className="w-3 h-3" />
-                      <span>Verify on Credly</span>
+                      <span>{t("certifications.verify")}</span>
                     </a>
                   )}
 
                   <div>
-                    <h5 className="font-semibold text-navy mb-3">Skills Validated:</h5>
+                    <h5 className="font-semibold text-navy mb-3">{t("certifications.skillsValidated")}</h5>
                     <div className="flex flex-wrap gap-2">
                       {cert.skills.map((skill, idx) => (
                         <Badge key={idx} variant="secondary" className="bg-blue-light text-navy">

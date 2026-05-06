@@ -96,14 +96,14 @@ Voir `features.md` — section "Fonctionnalités existantes".
 ### Dette technique ouverte
 | # | Problème | Composant |
 |---|---|---|
-| 1 | Projets fictifs (placeholder) | `Work.tsx` |
+| ~~1~~ | ~~Projets fictifs (placeholder)~~ — **Résolu** | `Work.tsx` |
 | ~~2~~ | ~~Liens de vérification invalides~~ — **Résolu** | `Certifications.tsx` |
 | ~~3~~ | ~~Bouton "Get In Touch" non relié à `#contact`~~ — **Résolu** | `Hero.tsx` |
 | ~~4~~ | ~~`emailjs-com` déprécié~~ — **Résolu** | `Contact.tsx` |
 | ~~5~~ | ~~CV uniquement en français~~ — **Résolu** | `FloatingDownload.tsx`, `Header.tsx` |
-| 6 | i18n incomplète (Experience, Certifications, Work, Contact non traduits) | Multiples |
-| 7 | Pas de sélecteur de langue dans l'UI | `Header.tsx` |
-| 8 | `security.ts` non intégré dans Contact.tsx | `Contact.tsx` |
+| ~~6~~ | ~~i18n incomplète~~ — **Résolu** | Multiples |
+| ~~7~~ | ~~Pas de sélecteur de langue dans l'UI~~ — **Résolu** | `Header.tsx` |
+| ~~8~~ | ~~`security.ts` non intégré dans Contact.tsx~~ — **Résolu** | `Contact.tsx` |
 
 ### Fonctionnalités planifiées
 Voir `features.md` — section "Fonctionnalités planifiées".
@@ -222,6 +222,47 @@ Les deux se déclenchaient en parallèle sur chaque push sur `main`.
 ### Impact sur la dette technique
 - Résolu : dette #3 (bouton "Get In Touch")
 - Résolu : dette #5 (CV bilingue — PDF EN désormais présent)
+
+---
+
+## 2026-05-05 — Correction dettes #1, #6, #7, #8 — i18n complète + vrais projets + sécurité
+
+### Contexte
+Clôture de toutes les dettes techniques restantes.
+
+### Changements
+
+**i18n (dettes #6 et #7)**
+- **Installé** : `i18next`, `react-i18next`, `i18next-browser-languagedetector`
+- **Créé** : `src/i18n/config.ts` — initialisation i18next avec détection navigateur, fallback EN, cache localStorage
+- **Créé** : `src/i18n/locales/en.json` — traductions complètes EN
+- **Créé** : `src/i18n/locales/fr.json` — traductions complètes FR
+- **Modifié** : `src/main.tsx` — import `./i18n/config`
+- **Modifié** : `src/components/Header.tsx` — sélecteur FR/EN (bouton toggle), `useTranslation()` sur nav et bouton CV
+- **Modifié** : `src/components/Hero.tsx` — `useTranslation()` sur tous les textes
+- **Modifié** : `src/components/About.tsx` — `useTranslation()` sur tous les textes
+- **Modifié** : `src/components/Experience.tsx` — `useTranslation()` sur labels (titres, "Réalisations", "Technologies")
+- **Modifié** : `src/components/Certifications.tsx` — `useTranslation()` sur labels
+- **Modifié** : `src/components/Work.tsx` — `useTranslation()` sur labels
+- **Modifié** : `src/components/Contact.tsx` — `useTranslation()` sur tous les textes du formulaire
+
+**Vrais projets Work.tsx (dette #1)**
+- Remplacement des 3 projets fictifs par :
+  1. **Ditems Portfolio** — ce site (public, demo + GitHub)
+  2. **360° Customer Intelligence Platform** — HAGER GROUP (client, NDA)
+  3. **Hybrid Data Platform Modernization** — VIDAL GROUP (client, NDA)
+- Badge "Client Project" pour les projets NDA, icône cadenas, pas de liens externes
+
+**Intégration security.ts (dette #8)**
+- `Contact.tsx` utilise désormais `sanitizeInput()`, `checkRateLimit()`, `setRateLimit()` de `src/utils/security.ts`
+- Suppression du code de rate limiting manuel (remplacé par `checkRateLimit` / `setRateLimit`)
+
+### Build
+`✓ built in 6.74s` — aucune erreur (warning chunk size non bloquant)
+
+### Impact sur la dette technique
+- Résolu : dettes #1, #6, #7, #8
+- **Toutes les dettes techniques sont désormais closes**
 
 ---
 

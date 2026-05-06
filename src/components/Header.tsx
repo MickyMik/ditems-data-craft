@@ -1,43 +1,47 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, Menu, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const BASE_URL = "https://raw.githubusercontent.com/MickyMik/ditems-data-craft/main/resume/";
 
-const getCvUrl = () => {
-  const isFrench = navigator.language.startsWith("fr");
-  return isFrench
+const getCvUrl = (lang: string) => {
+  return lang.startsWith("fr")
     ? `${BASE_URL}CV_METINHOUE_FR.pdf`
     : `${BASE_URL}CV_METINHOUE_EN.pdf`;
 };
 
 const Header = () => {
+  const { t, i18n } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
-    }
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setIsMobileMenuOpen(false);
+  };
+
+  const toggleLanguage = () => {
+    i18n.changeLanguage(i18n.language.startsWith("fr") ? "en" : "fr");
   };
 
   const navItems = [
-    { label: "About", id: "about" },
-    { label: "Experience", id: "experience" },
-    { label: "Certifications", id: "certifications" },
-    { label: "Work", id: "work" },
-    { label: "Contact", id: "contact" },
+    { labelKey: "nav.about", id: "about" },
+    { labelKey: "nav.experience", id: "experience" },
+    { labelKey: "nav.certifications", id: "certifications" },
+    { labelKey: "nav.work", id: "work" },
+    { labelKey: "nav.contact", id: "contact" },
   ];
+
+  const cvUrl = getCvUrl(i18n.language);
+  const currentLang = i18n.language.startsWith("fr") ? "FR" : "EN";
+  const otherLang = currentLang === "FR" ? "EN" : "FR";
 
   return (
     <>
@@ -45,14 +49,14 @@ const Header = () => {
         isScrolled ? "bg-background/80 backdrop-blur-md shadow-card" : "bg-transparent"
       }`}>
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div 
+          <div
             className="flex items-center gap-3 cursor-pointer group transition-all duration-300 hover:scale-105"
             onClick={() => scrollToSection("hero")}
           >
             <div className="relative p-2 bg-primary/10 rounded-2xl backdrop-blur-sm border border-primary/20 transition-all duration-300 group-hover:bg-primary/15 group-hover:border-primary/30">
-              <img 
-                src="/lovable-uploads/daa6a904-2dd3-483e-865a-6cc892381a2c.png" 
-                alt="Ditems Logo" 
+              <img
+                src="/lovable-uploads/daa6a904-2dd3-483e-865a-6cc892381a2c.png"
+                alt="Ditems Logo"
                 className="h-10 w-10 object-contain transition-transform duration-300 group-hover:rotate-6"
               />
             </div>
@@ -69,20 +73,25 @@ const Header = () => {
                 onClick={() => scrollToSection(item.id)}
                 className="text-foreground hover:text-primary transition-colors font-medium"
               >
-                {item.label}
+                {t(item.labelKey)}
               </button>
             ))}
           </nav>
 
-          <div className="flex items-center space-x-4">
-            <a href={getCvUrl()} download target="_blank" rel="noopener noreferrer">
-            <Button variant="download" size="sm" className="hidden md:flex">
-              <Download className="w-4 h-4" />
-              Resume
-            </Button>
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={toggleLanguage}
+              className="text-sm font-semibold text-foreground hover:text-primary transition-colors border border-border rounded-md px-2 py-1"
+              aria-label={`Switch to ${otherLang}`}
+            >
+              {currentLang}
+            </button>
+            <a href={cvUrl} download target="_blank" rel="noopener noreferrer">
+              <Button variant="download" size="sm" className="hidden md:flex">
+                <Download className="w-4 h-4" />
+                {t("nav.resume")}
+              </Button>
             </a>
-
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden text-foreground"
@@ -103,15 +112,21 @@ const Header = () => {
                 onClick={() => scrollToSection(item.id)}
                 className="text-2xl font-medium text-foreground hover:text-primary transition-colors"
               >
-                {item.label}
+                {t(item.labelKey)}
               </button>
             ))}
-            <a href={getCvUrl()} download target="_blank" rel="noopener noreferrer">
-            <Button variant="download" size="lg">
-              <Download className="w-5 h-5" />
-              Download Resume
-            </Button>
+            <a href={cvUrl} download target="_blank" rel="noopener noreferrer">
+              <Button variant="download" size="lg">
+                <Download className="w-5 h-5" />
+                {t("nav.resume")}
+              </Button>
             </a>
+            <button
+              onClick={toggleLanguage}
+              className="text-lg font-semibold text-foreground hover:text-primary transition-colors border border-border rounded-md px-4 py-2"
+            >
+              {otherLang}
+            </button>
           </div>
         </div>
       )}

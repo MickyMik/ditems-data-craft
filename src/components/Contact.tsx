@@ -8,14 +8,14 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useTranslation } from "react-i18next";
 import emailjs from "@emailjs/browser";
+import { sanitizeInput, checkRateLimit, setRateLimit } from "@/utils/security";
 
-// ✅ EmailJS Configuration (Replace with your actual IDs)
-const SERVICE_ID = "service_t6so8r5"; // Remplace par ton Service ID EmailJS
-const TEMPLATE_ID = "template_meqf9bp"; // Remplace par ton Template ID EmailJS
-const PUBLIC_KEY = "IobH6oMwMiIETnEVh"; // Remplace par ta clé publique EmailJS
+const SERVICE_ID = "service_t6so8r5";
+const TEMPLATE_ID = "template_meqf9bp";
+const PUBLIC_KEY = "IobH6oMwMiIETnEVh";
 
-// ✅ Validation Schema avec Zod // Form validation schema
 const contactFormSchema = z.object({
   name: z.string()
     .min(2, "Name must be at least 2 characters")
@@ -35,112 +35,54 @@ const contactFormSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
+const RATE_LIMIT_KEY = "lastContactSubmission";
+
 const Contact = () => {
+  const { t } = useTranslation();
   const { toast } = useToast();
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      subject: "",
-      message: ""
-    }
+    defaultValues: { name: "", email: "", subject: "", message: "" }
   });
 
   const handleSubmit = async (data: ContactFormData) => {
+    if (!checkRateLimit(RATE_LIMIT_KEY, 60000)) {
+      toast({ title: t("contact.errorTitle"), description: t("contact.rateLimitMessage"), variant: "destructive" });
+      return;
+    }
+
     try {
-      // ✅ Anti-Spam: Vérifie délai entre envois // Empêche spam en vérifiant le délai // Rate limiting check (simple client-side implementation)
-      const lastSubmission = localStorage.getItem("lastContactSubmission");
-      const now = Date.now();
-      if (lastSubmission && now - parseInt(lastSubmission) < 60000) {
-        toast({
-          title: "Please wait",
-          description: "Please wait a minute before sending another message.",
-          variant: "destructive"
-        });
-        return;
-      }
-
-      // ✅ Nettoyage des données
-      const sanitizedData = {
-        name: data.name.trim(),
-        email: data.email.trim().toLowerCase(),
-        subject: data.subject.trim(),
-        message: data.message.trim()
-      };
-
-      // ✅ Envoi via EmailJS
       await emailjs.send(
         SERVICE_ID,
         TEMPLATE_ID,
         {
-          name: sanitizedData.name,
-          email: sanitizedData.email,
-          subject: sanitizedData.subject,
-          message: sanitizedData.message
+          name: sanitizeInput(data.name),
+          email: sanitizeInput(data.email.toLowerCase()),
+          subject: sanitizeInput(data.subject),
+          message: sanitizeInput(data.message),
         },
         PUBLIC_KEY
       );
 
-      // ✅ Sauvegarde du timestamp pour éviter spam
-      localStorage.setItem("lastContactSubmission", now.toString());
-
-      toast({
-        title: "Message sent!",
-        description: "Thank you for your message. I'll get back to you soon."
-      });
-
+      setRateLimit(RATE_LIMIT_KEY);
+      toast({ title: t("contact.successTitle"), description: t("contact.successMessage") });
       form.reset();
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive"
-      });
+    } catch {
+      toast({ title: t("contact.errorTitle"), description: t("contact.errorMessage"), variant: "destructive" });
     }
   };
 
   const contactInfo = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: "contact@ditems.fr",
-      href: "mailto:contact@ditems.fr"
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: "+33 6 52 93 61 26",
-      href: "tel:+33652936126"
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      value: "Paris, France",
-      href: "#"
-    }
+    { icon: Mail, label: "Email", value: "contact@ditems.fr", href: "mailto:contact@ditems.fr" },
+    { icon: Phone, label: "Phone", value: "+33 6 52 93 61 26", href: "tel:+33652936126" },
+    { icon: MapPin, label: "Location", value: "Paris, France", href: "#" },
   ];
 
   const socialLinks = [
-    {
-      icon: Linkedin,
-      label: "LinkedIn",
-      href: "https://www.linkedin.com/in/michael-m-87177793/",
-      color: "hover:text-blue-600"
-    },
-    {
-      icon: Github,
-      label: "GitHub",
-      href: "https://github.com/MickyMik",
-      color: "hover:text-gray-900"
-    },
-    {
-      icon: Mail,
-      label: "Email",
-      href: "mailto:contact@ditems.fr",
-      color: "hover:text-red-500"
-    }
+    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/michael-m-87177793/", color: "hover:text-blue-600" },
+    { icon: Github, label: "GitHub", href: "https://github.com/MickyMik", color: "hover:text-gray-900" },
+    { icon: Mail, label: "Email", href: "mailto:contact@ditems.fr", color: "hover:text-red-500" },
   ];
 
   return (
@@ -148,18 +90,14 @@ const Contact = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">Let's Connect</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Ready to discuss your next data project? I'm always excited to collaborate on 
-              innovative solutions and challenging problems. Let's start a conversation.
-            </p>
+            <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">{t("contact.title")}</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">{t("contact.subtitle")}</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
             <Card className="shadow-card">
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-navy mb-6">Send a Message</h3>
+                <h3 className="text-2xl font-bold text-navy mb-6">{t("contact.formTitle")}</h3>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-4">
@@ -168,9 +106,9 @@ const Contact = () => {
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Name</FormLabel>
+                            <FormLabel>{t("contact.name")}</FormLabel>
                             <FormControl>
-                              <Input placeholder="Your name" {...field} />
+                              <Input placeholder={t("contact.namePlaceholder")} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -181,9 +119,9 @@ const Contact = () => {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel>{t("contact.email")}</FormLabel>
                             <FormControl>
-                              <Input type="email" placeholder="your.email@example.com" {...field} />
+                              <Input type="email" placeholder={t("contact.emailPlaceholder")} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -196,9 +134,9 @@ const Contact = () => {
                       name="subject"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Subject</FormLabel>
+                          <FormLabel>{t("contact.subject")}</FormLabel>
                           <FormControl>
-                            <Input placeholder="Project discussion, collaboration, etc." {...field} />
+                            <Input placeholder={t("contact.subjectPlaceholder")} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -210,45 +148,30 @@ const Contact = () => {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Message</FormLabel>
+                          <FormLabel>{t("contact.message")}</FormLabel>
                           <FormControl>
-                            <Textarea
-                              rows={6}
-                              placeholder="Tell me about your project, challenges you're facing, or how we can work together..."
-                              {...field}
-                            />
+                            <Textarea rows={6} placeholder={t("contact.messagePlaceholder")} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
 
-                    <Button
-                      type="submit"
-                      variant="contact"
-                      size="lg"
-                      className="w-full"
-                      disabled={form.formState.isSubmitting}
-                    >
-                      {form.formState.isSubmitting ? "Sending..." : "Send Message"}
+                    <Button type="submit" variant="contact" size="lg" className="w-full" disabled={form.formState.isSubmitting}>
+                      {form.formState.isSubmitting ? t("contact.sending") : t("contact.send")}
                     </Button>
                   </form>
                 </Form>
               </CardContent>
             </Card>
 
-            {/* Contact Info + Social Links */}
             <div className="space-y-8">
               <Card className="shadow-card">
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-navy mb-6">Get in Touch</h3>
+                  <h3 className="text-2xl font-bold text-navy mb-6">{t("contact.infoTitle")}</h3>
                   <div className="space-y-4">
                     {contactInfo.map((info, index) => (
-                      <a
-                        key={index}
-                        href={info.href}
-                        className="flex items-center space-x-4 text-muted-foreground hover:text-primary transition-colors group"
-                      >
+                      <a key={index} href={info.href} className="flex items-center space-x-4 text-muted-foreground hover:text-primary transition-colors group">
                         <div className="w-12 h-12 bg-blue-light rounded-full flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
                           <info.icon className="w-5 h-5" />
                         </div>
@@ -264,11 +187,8 @@ const Contact = () => {
 
               <Card className="bg-gradient-primary text-white">
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold mb-4">Let's Build Something Amazing</h3>
-                  <p className="text-blue-light mb-6">
-                    I'm passionate about solving complex data challenges and would love to hear about your project. 
-                    Whether you need consultation, development, or just want to discuss ideas, I'm here to help.
-                  </p>
+                  <h3 className="text-2xl font-bold mb-4">{t("contact.ctaTitle")}</h3>
+                  <p className="text-blue-light mb-6">{t("contact.ctaText")}</p>
                   <div className="flex space-x-4">
                     {socialLinks.map((social, index) => (
                       <a
@@ -286,11 +206,8 @@ const Contact = () => {
 
               <Card className="shadow-card">
                 <CardContent className="p-8">
-                  <h3 className="text-xl font-bold text-navy mb-4">Response Time</h3>
-                  <p className="text-muted-foreground">
-                    I typically respond to messages within 24 hours. For urgent matters, 
-                    feel free to reach out directly via phone or LinkedIn.
-                  </p>
+                  <h3 className="text-xl font-bold text-navy mb-4">{t("contact.responseTitle")}</h3>
+                  <p className="text-muted-foreground">{t("contact.responseText")}</p>
                 </CardContent>
               </Card>
             </div>

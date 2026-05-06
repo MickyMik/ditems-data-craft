@@ -11,7 +11,7 @@ const Certifications = () => {
       issuer: "Microsoft",
       date: "2024",
       credentialId: "DP-203",
-      credentialUrl: null as string | null,
+      credentialUrl: "https://learn.microsoft.com/api/credentials/share/fr-fr/metinhoue/4940F1DC6288C3C8?sharingId=D60DF056DF7B1866",
       description: "Demonstrated expertise in integrating, transforming, and consolidating data from various structured and unstructured data systems into structures suitable for building analytics solutions.",
       skills: ["Azure Data Factory", "Azure Synapse Analytics", "Azure Databricks", "Azure Storage"]
     },

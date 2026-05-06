@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github, Lock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import useIntersection from "@/hooks/use-intersection";
+import SectionTitle from "@/components/SectionTitle";
+import TiltCard from "@/components/TiltCard";
 
 const Work = () => {
   const { t } = useTranslation();
@@ -58,22 +60,21 @@ const Work = () => {
     <section id="work" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">{t("work.title")}</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">{t("work.subtitle")}</p>
-          </div>
+          <SectionTitle text={t("work.title")} subtitle={t("work.subtitle")} />
 
           <div ref={gridRef} className="grid lg:grid-cols-2 gap-8">
             {projects.map((project, index) => (
-              <Card
+              <TiltCard
                 key={index}
-                className="overflow-hidden hover:shadow-hover transition-shadow duration-300"
+                intensity={6}
                 style={{
                   opacity: gridVisible ? 1 : 0,
                   transform: gridVisible ? "translateY(0)" : "translateY(24px)",
                   transition: `opacity 0.5s ease-out ${index * 0.15}s, transform 0.5s ease-out ${index * 0.15}s`,
                 }}
               >
+              <Card
+                className="shimmer-card overflow-hidden hover:shadow-hover transition-shadow duration-300 h-full">
                 <div className="aspect-video bg-gradient-primary relative overflow-hidden">
                   <div className="absolute inset-0 bg-navy/20 flex items-center justify-center">
                     <div className="text-white text-center">
@@ -137,6 +138,7 @@ const Work = () => {
                   </div>
                 </CardContent>
               </Card>
+              </TiltCard>
             ))}
           </div>
 

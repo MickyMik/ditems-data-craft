@@ -3,6 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { Award, Calendar, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import useIntersection from "@/hooks/use-intersection";
+import SectionTitle from "@/components/SectionTitle";
+import TiltCard from "@/components/TiltCard";
 
 const Certifications = () => {
   const { t } = useTranslation();
@@ -51,22 +53,20 @@ const Certifications = () => {
     <section id="certifications" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">{t("certifications.title")}</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("certifications.subtitle")}</p>
-          </div>
+          <SectionTitle text={t("certifications.title")} subtitle={t("certifications.subtitle")} />
 
           <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {certifications.map((cert, index) => (
-              <Card
+              <TiltCard
                 key={index}
-                className="hover:shadow-hover transition-shadow duration-300"
                 style={{
                   opacity: gridVisible ? 1 : 0,
                   transform: gridVisible ? "translateY(0)" : "translateY(24px)",
                   transition: `opacity 0.5s ease-out ${index * 0.12}s, transform 0.5s ease-out ${index * 0.12}s`,
                 }}
               >
+              <Card
+                className="shimmer-card hover:shadow-hover transition-shadow duration-300 h-full">
                 <CardContent className="p-6">
                   <div className="flex items-start space-x-4 mb-4">
                     <div className="p-2 bg-primary/10 rounded-lg">
@@ -113,6 +113,7 @@ const Certifications = () => {
                   </div>
                 </CardContent>
               </Card>
+              </TiltCard>
             ))}
           </div>
         </div>

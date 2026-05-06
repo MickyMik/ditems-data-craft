@@ -6,10 +6,12 @@ import Certifications from "@/components/Certifications";
 import Work from "@/components/Work";
 import Contact from "@/components/Contact";
 import FloatingDownload from "@/components/FloatingDownload";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <ScrollProgress />
       <Header />
       <Hero />
       <About />

@@ -266,6 +266,64 @@ Clôture de toutes les dettes techniques restantes.
 
 ---
 
+## 2026-05-06 09h00 — Refonte dynamique visuelle complète
+
+### Contexte
+Le site était statique. Objectif : rendre l'expérience "hyper dynamique" tout en conservant la palette de couleurs existante. Toutes les sections ont été enrichies d'animations et de composants réutilisables.
+
+### Changements
+
+**Nouveaux hooks**
+- **Créé** : `src/hooks/use-typewriter.tsx` — effet machine à écrire (char by char, délai initial, vitesse configurable)
+- **Créé** : `src/hooks/use-counter.tsx` — compteur animé 0 → cible avec ease-out cubique (rAF ~60fps, durée configurable)
+- **Créé** : `src/hooks/use-active-section.tsx` — IntersectionObserver sur chaque section ID, expose la section courante visible
+
+**Nouveaux composants**
+- **Créé** : `src/components/ScrollProgress.tsx` — barre de progression scroll fixée en haut de page (gradient primary → blue-bright, 3px, z-9999)
+- **Créé** : `src/components/SectionTitle.tsx` — h2 animé slide-up + underline grow au scroll, prop `light` pour fonds sombres
+- **Créé** : `src/components/TiltCard.tsx` — wrapper 3D perspective rotateX/Y au survol, props `intensity` et `style`
+
+**Tailwind + CSS**
+- **Modifié** : `tailwind.config.ts` — correction import ESM (`tailwindAnimate`), nouveaux keyframes : `shimmer`, `blink`, `gradient-shift`, `count-up`, `timeline-grow`
+- **Modifié** : `src/index.css` — `.bg-gradient-hero-animated` (400% bg-size, 10s), `.shimmer-card` (::after sweep), `.scroll-progress`
+
+**Composants métier**
+- **Modifié** : `src/components/Hero.tsx` — typewriter sur sous-titre + curseur `animate-blink`, compteurs animés stats (10+/4/6) dans bloc glassmorphism, 3 blobs, `animate-pulse-glow`
+- **Modifié** : `src/components/Header.tsx` — active section via `useActiveSection`, point souligné animé + `text-primary` sur item actif
+- **Modifié** : `src/components/About.tsx` — intégration `SectionTitle`, groupe hover scale sur icons strength cards
+- **Modifié** : `src/components/Experience.tsx` — `SectionTitle` + timeline verticale (ligne animée 0%→100%, dots scale-in, cards slide-in stagger)
+- **Modifié** : `src/components/Certifications.tsx` — `SectionTitle` + `TiltCard` + `.shimmer-card`
+- **Modifié** : `src/components/Work.tsx` — `SectionTitle` + `TiltCard` (intensity 6) + `.shimmer-card`
+- **Modifié** : `src/components/Contact.tsx` — `SectionTitle` (light=true) + état succès animé (CheckCircle2 + slide-up) après envoi
+- **Modifié** : `src/pages/Index.tsx` — ajout `<ScrollProgress />` en tête de page
+
+### Commit(s)
+- `d918e4c` — feat: dynamic visual overhaul — animations, typewriter, tilt, timeline, scroll progress (branche : dev)
+
+### Build
+`✓ built in 5.20s` — 0 erreur TypeScript, avertissement chunk > 500 kB non bloquant
+
+---
+
+## 2026-05-06 10h00 — Suppression bloc CTA + correction URL LinkedIn + remplacement icônes dépréciées
+
+### Contexte
+- Le bloc "Intéressé par une collaboration ?" (card gradient) dans Contact était redondant.
+- L'URL LinkedIn était incorrecte (`michael-m-87177793` → `john-michael-m-87177793`).
+- Les icônes `Github` et `Linkedin` de lucide-react sont dépréciées (brand icons supprimées de la librairie).
+
+### Changements
+- **Modifié** : `src/components/Contact.tsx` — suppression card CTA + variable `socialLinks`, nettoyage imports `Linkedin`/`Github` devenus inutiles
+- **Modifié** : `src/components/Hero.tsx` — URL LinkedIn corrigée, icônes `Github`/`Linkedin` remplacées par SVG inline (évite la dépendance sur des brand icons dépréciées)
+
+### Commit(s)
+- Commit à venir (branche : dev)
+
+### Build
+`✓ built in 5.66s` — 0 erreur TypeScript
+
+---
+
 ## Format pour les entrées futures
 
 ```markdown

@@ -25,7 +25,7 @@ Conçu pour évoluer vers une intégration IA (assistant conversationnel context
 | State / Data | TanStack React Query | 5.56.2 |
 | Formulaires | React Hook Form + Zod | 7.53 / 3.23 |
 | i18n | i18next + react-i18next | 25.x / 16.x |
-| Email | emailjs-com | 3.2.0 |
+| Email | @emailjs/browser | 4.x |
 | Icons | Lucide React | 0.462.0 |
 | Notifications | Sonner + Radix Toast | — |
 | Linting | ESLint + typescript-eslint | 9.x |
@@ -46,19 +46,26 @@ ditems-data-craft/
 │   │   ├── Index.tsx         # Page principale one-page (compose toutes les sections)
 │   │   └── NotFound.tsx      # Fallback 404
 │   ├── components/
-│   │   ├── Header.tsx        # Navigation fixe, mobile menu, logo
-│   │   ├── Hero.tsx          # Section d'accroche hero
-│   │   ├── About.tsx         # À propos, compétences, certifications preview
-│   │   ├── Experience.tsx    # Parcours professionnel (6 postes)
-│   │   ├── Certifications.tsx# 4 certifications Microsoft
-│   │   ├── Work.tsx          # Projets réalisés (placeholder)
-│   │   ├── Contact.tsx       # Formulaire de contact (EmailJS)
+│   │   ├── Header.tsx        # Navigation fixe, mobile menu, logo, sélecteur langue, active section
+│   │   ├── Hero.tsx          # Section d'accroche hero (typewriter, compteurs, blobs)
+│   │   ├── About.tsx         # À propos, compétences animées, cards strengths
+│   │   ├── Experience.tsx    # Parcours professionnel (6 postes, timeline animée)
+│   │   ├── Certifications.tsx# 4 certifications Microsoft (TiltCard + shimmer)
+│   │   ├── Work.tsx          # 3 vrais projets (TiltCard + shimmer)
+│   │   ├── Contact.tsx       # Formulaire de contact (EmailJS, état succès animé)
 │   │   ├── FloatingDownload.tsx # Bouton flottant téléchargement CV
+│   │   ├── ScrollProgress.tsx# Barre de progression scroll (top, 3px)
+│   │   ├── SectionTitle.tsx  # Titre h2 animé slide-up + underline grow
+│   │   ├── TiltCard.tsx      # Wrapper 3D perspective au survol
 │   │   ├── ErrorBoundary.tsx # Gestion globale des erreurs React
 │   │   └── ui/               # Primitives shadcn/ui (~50 composants)
 │   ├── hooks/
 │   │   ├── use-mobile.tsx    # Détection breakpoint mobile
-│   │   └── use-toast.ts      # Hook notifications
+│   │   ├── use-toast.ts      # Hook notifications
+│   │   ├── use-intersection.tsx # IntersectionObserver one-shot (scroll animations)
+│   │   ├── use-typewriter.tsx# Effet machine à écrire (char by char)
+│   │   ├── use-counter.tsx   # Compteur animé ease-out cubique (rAF)
+│   │   └── use-active-section.tsx # Section active au scroll (IntersectionObserver)
 │   ├── i18n/
 │   │   ├── config.ts         # Configuration i18next (FR/EN auto-detect)
 │   │   └── locales/
@@ -137,7 +144,7 @@ Basé sur shadcn/ui + Tailwind CSS. Design tokens définis dans `index.css` (var
 | `--gradient-primary` | Cards d'accroche, boutons |
 | `--shadow-card`, `--shadow-hover`, `--shadow-glow` | Élévations |
 
-Animations Tailwind personnalisées : `animate-float`, `animate-pulse-glow`, `animate-slide-up`.
+Animations Tailwind personnalisées : `animate-float`, `animate-pulse-glow`, `animate-slide-up`, `animate-shimmer`, `animate-blink`, `animate-gradient-shift`, `animate-count-up`.
 
 Variants de boutons custom : `hero`, `download`, `contact`.
 
@@ -241,10 +248,12 @@ Fichier : `.github/workflows/deploy.yml`
 | Étape | Détail |
 |---|---|
 | Déclencheur | Push sur `main` |
-| Runtime | `ubuntu-latest`, Node.js 18 |
+| Runtime | `ubuntu-latest`, Node.js 20 |
 | Install | `npm install` |
 | Build | `npm run build` → `dist/` |
-| Deploy | `peaceiris/actions-gh-pages@v3` → branche `gh-pages` |
+| Upload | `actions/upload-pages-artifact@v3` |
+| Deploy | `actions/deploy-pages@v5` (méthode officielle GitHub) |
+| Concurrence | `group: "pages", cancel-in-progress: false` |
 
 **Flux de déploiement :**
 ```

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mail, Phone, MapPin, Linkedin, Github, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, CheckCircle2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -81,12 +81,6 @@ const Contact = () => {
     { icon: Mail, label: "Email", value: "contact@ditems.fr", href: "mailto:contact@ditems.fr" },
     { icon: Phone, label: "Phone", value: "+33 6 52 93 61 26", href: "tel:+33652936126" },
     { icon: MapPin, label: "Location", value: "Paris, France", href: "#" },
-  ];
-
-  const socialLinks = [
-    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/michael-m-87177793/", color: "hover:text-blue-600" },
-    { icon: Github, label: "GitHub", href: "https://github.com/MickyMik", color: "hover:text-gray-900" },
-    { icon: Mail, label: "Email", href: "mailto:contact@ditems.fr", color: "hover:text-red-500" },
   ];
 
   return (
@@ -198,25 +192,6 @@ const Contact = () => {
                           <p className="font-medium text-navy">{info.label}</p>
                           <p className="text-muted-foreground">{info.value}</p>
                         </div>
-                      </a>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-gradient-primary text-white">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold mb-4">{t("contact.ctaTitle")}</h3>
-                  <p className="text-blue-light mb-6">{t("contact.ctaText")}</p>
-                  <div className="flex space-x-4">
-                    {socialLinks.map((social, index) => (
-                      <a
-                        key={index}
-                        href={social.href}
-                        className={`w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-navy transition-all transform hover:scale-110 ${social.color}`}
-                        aria-label={social.label}
-                      >
-                        <social.icon className="w-5 h-5" />
                       </a>
                     ))}
                   </div>

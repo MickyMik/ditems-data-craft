@@ -97,7 +97,7 @@ Voir `features.md` — section "Fonctionnalités existantes".
 | # | Problème | Composant |
 |---|---|---|
 | 1 | Projets fictifs (placeholder) | `Work.tsx` |
-| 2 | Liens Credly invalides | `About.tsx` |
+| ~~2~~ | ~~Liens Credly invalides~~ — **Résolu** | `Certifications.tsx` |
 | 3 | Bouton "Get In Touch" non relié à `#contact` | `Hero.tsx` |
 | 4 | `emailjs-com` déprécié (remplacer par `@emailjs/browser`) | `Contact.tsx` |
 | 5 | CV uniquement en français | `FloatingDownload.tsx`, `Header.tsx` |
@@ -146,6 +146,28 @@ Ajouter `resume/CV_METINHOUE_EN.pdf` dans le dépôt pour activer complètement 
 
 ### Impact sur la dette technique
 - Résolu : dette #5 (CV FR uniquement) — logique implémentée, en attente du fichier PDF EN
+
+---
+
+## 2026-05-05 — Liens Credly sur les certifications
+
+### Contexte
+Les cards de certifications affichaient un `credentialId` mais aucun lien cliquable vers Credly pour vérification publique du badge.
+
+### Changements
+- **Modifié** : `src/components/Certifications.tsx` — ajout du champ `credentialUrl` dans les données et d'un bouton "Verify on Credly" conditionnel (s'affiche uniquement si l'URL est renseignée)
+- Import `ExternalLink` (lucide-react) ajouté
+
+### URLs renseignées
+| Certification | URL Credly |
+|---|---|
+| AZ-900 | https://www.credly.com/badges/2ef3251b-8368-45eb-892c-e038027b5052 |
+| 70-767 | https://www.credly.com/badges/ccdbd6af-436d-4a63-94fb-6d70660ca689 |
+| 70-461 | https://www.credly.com/badges/5008f806-2680-4874-8219-b1ed63b20615 |
+| DP-203 | ✗ Pas de badge Credly (Microsoft n'en a pas émis pour cet examen) |
+
+### Impact sur la dette technique
+- Résolu : dette #2 (liens Credly invalides) — 3/4 certifications liées, DP-203 sans badge Credly (comportement attendu)
 
 ---
 

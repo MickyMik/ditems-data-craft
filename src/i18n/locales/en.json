@@ -1,0 +1,82 @@
+{
+  "nav": {
+    "about": "About",
+    "experience": "Experience",
+    "certifications": "Certifications",
+    "work": "Work",
+    "contact": "Contact",
+    "resume": "Resume"
+  },
+  "hero": {
+    "title": "Data Engineer",
+    "subtitle": "& Analytics Expert",
+    "description": "Transforming raw data into actionable insights with cutting-edge technologies and scalable solutions.",
+    "exploreWork": "Explore My Work",
+    "getInTouch": "Get In Touch"
+  },
+  "about": {
+    "title": "About Me",
+    "intro": "I am an experienced Data Engineer and future Data Architect with over a decade of expertise in designing and implementing end-to-end data and BI platforms. Certified and specialized in Microsoft technologies (on-premises and cloud), I help organizations build robust data pipelines, implement real-time analytics, and deliver insightful reporting to empower data-driven decision-making. With strong expertise in DataOps practices using Azure DevOps, I ensure seamless integration, automated deployments, and continuous delivery for data solutions, enhancing reliability and scalability across the data lifecycle. Passionate about turning complex data into actionable insights, I thrive in building scalable, automated, and high-performing solutions that deliver real business value.",
+    "journeyTitle": "My Journey",
+    "journey1": "I started my career as a BI Developer, building reports and dashboards that transformed raw data into actionable insights. Along the way, I embraced DataOps practices, leveraging automation and Azure DevOps to streamline data workflows and implement CI/CD for data solutions. This foundation led me to become a Tech Lead in Data, where I guided teams in developing modern data platforms and implementing best practices for scalability, performance, and governance. Currently, I work as a Data Engineer, specializing in Microsoft technologies (on-premises and Azure cloud) to design and deploy end-to-end data and BI platforms, implement real-time analytics, and build robust data pipelines. I am now focused on advancing toward my next goal: becoming a Data Architect, passionate about designing scalable, high-performing architectures that power data-driven decision-making.",
+    "journey2": "My expertise spans across the entire data lifecycle — from ingestion and processing to storage and visualization. I'm particularly passionate about real-time data processing and implementing modern data stack solutions.",
+    "skillsTitle": "Technical Skills",
+    "strengthArchitectureTitle": "Data Architecture",
+    "strengthArchitectureText": "Designing scalable and robust data architectures that grow with your business needs.",
+    "strengthRealtimeTitle": "Real-time Processing",
+    "strengthRealtimeText": "Building high-performance streaming pipelines for real-time analytics and insights.",
+    "strengthBiTitle": "Business Intelligence & Analytics",
+    "strengthBiText": "Implementing Business Intelligence models and advanced analytics for data-driven insights that empower innovation and growth."
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "A journey through challenging projects and innovative solutions in the data engineering landscape.",
+    "achievements": "Key Achievements:",
+    "technologies": "Technologies:"
+  },
+  "certifications": {
+    "title": "Certifications",
+    "subtitle": "Professional certifications that validate my expertise in data engineering and cloud technologies.",
+    "skillsValidated": "Skills Validated:",
+    "verify": "Verify Certificate",
+    "credentialId": "ID:"
+  },
+  "work": {
+    "title": "Featured Work",
+    "subtitle": "A selection of projects reflecting my expertise in data engineering, cloud architecture, and DataOps.",
+    "keyFeatures": "Key Features:",
+    "technologies": "Technologies:",
+    "liveDemo": "Live Demo",
+    "code": "Source Code",
+    "viewProject": "View Project",
+    "professional": "Client Project",
+    "ctaTitle": "Interested in Collaboration?",
+    "ctaText": "I'm always excited to work on challenging data engineering projects. Let's discuss how we can build something amazing together.",
+    "ctaButton": "Start a Conversation"
+  },
+  "contact": {
+    "title": "Let's Connect",
+    "subtitle": "Ready to discuss your next data project? I'm always excited to collaborate on innovative solutions and challenging problems. Let's start a conversation.",
+    "formTitle": "Send a Message",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "your.email@example.com",
+    "subject": "Subject",
+    "subjectPlaceholder": "Project discussion, collaboration, etc.",
+    "message": "Message",
+    "messagePlaceholder": "Tell me about your project, challenges you're facing, or how we can work together...",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "successTitle": "Message sent!",
+    "successMessage": "Thank you for your message. I'll get back to you soon.",
+    "errorTitle": "Error",
+    "errorMessage": "Failed to send message. Please try again.",
+    "rateLimitMessage": "Please wait a minute before sending another message.",
+    "infoTitle": "Get in Touch",
+    "ctaTitle": "Let's Build Something Amazing",
+    "ctaText": "I'm passionate about solving complex data challenges and would love to hear about your project. Whether you need consultation, development, or just want to discuss ideas, I'm here to help.",
+    "responseTitle": "Response Time",
+    "responseText": "I typically respond to messages within 24 hours. For urgent matters, feel free to reach out directly via phone or LinkedIn."
+  }
+}

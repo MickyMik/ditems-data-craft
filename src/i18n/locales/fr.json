@@ -1,0 +1,82 @@
+{
+  "nav": {
+    "about": "À propos",
+    "experience": "Expérience",
+    "certifications": "Certifications",
+    "work": "Projets",
+    "contact": "Contact",
+    "resume": "CV"
+  },
+  "hero": {
+    "title": "Data Engineer",
+    "subtitle": "& Expert Analytique",
+    "description": "Transformer la donnée brute en insights actionnables grâce à des technologies de pointe et des solutions scalables.",
+    "exploreWork": "Découvrir mon travail",
+    "getInTouch": "Me contacter"
+  },
+  "about": {
+    "title": "À propos",
+    "intro": "Ingénieur Data expérimenté et futur Architecte Data, avec plus d'une décennie d'expertise dans la conception et la mise en œuvre de plateformes data et BI end-to-end. Certifié et spécialisé dans les technologies Microsoft (on-premises et cloud), j'aide les organisations à construire des pipelines de données robustes, à implémenter des analytics en temps réel et à délivrer des rapports pertinents pour la prise de décision data-driven. Grâce à une forte expertise en pratiques DataOps avec Azure DevOps, j'assure une intégration fluide, des déploiements automatisés et une livraison continue des solutions data. Passionné par la transformation de données complexes en insights actionnables, j'excelle dans la construction de solutions scalables, automatisées et performantes qui créent de la valeur métier réelle.",
+    "journeyTitle": "Mon parcours",
+    "journey1": "J'ai débuté ma carrière en tant que développeur BI, en construisant des rapports et des tableaux de bord transformant la donnée brute en insights actionnables. En cours de route, j'ai adopté les pratiques DataOps, en tirant parti de l'automatisation et d'Azure DevOps pour optimiser les workflows data et implémenter le CI/CD. Cette base m'a conduit à devenir Tech Lead Data, où j'ai guidé des équipes dans le développement de plateformes data modernes et l'implémentation de bonnes pratiques en matière de scalabilité, de performance et de gouvernance. Aujourd'hui, je travaille en tant que Data Engineer, spécialisé dans les technologies Microsoft pour concevoir et déployer des plateformes data et BI end-to-end, implémenter des analytics en temps réel et construire des pipelines robustes. Je me concentre désormais sur mon prochain objectif : devenir Architecte Data.",
+    "journey2": "Mon expertise couvre l'intégralité du cycle de vie de la donnée — de l'ingestion et du traitement jusqu'au stockage et à la visualisation. Je suis particulièrement passionné par le traitement de données en temps réel et l'implémentation de solutions modernes de data stack.",
+    "skillsTitle": "Compétences techniques",
+    "strengthArchitectureTitle": "Architecture Data",
+    "strengthArchitectureText": "Conception d'architectures data scalables et robustes qui évoluent avec les besoins de votre entreprise.",
+    "strengthRealtimeTitle": "Traitement temps réel",
+    "strengthRealtimeText": "Construction de pipelines streaming haute performance pour l'analytics et les insights en temps réel.",
+    "strengthBiTitle": "Business Intelligence & Analytique",
+    "strengthBiText": "Implémentation de modèles BI et d'analytics avancés pour des insights data-driven qui favorisent l'innovation et la croissance."
+  },
+  "experience": {
+    "title": "Expérience",
+    "subtitle": "Un parcours à travers des projets ambitieux et des solutions innovantes dans l'univers de l'ingénierie data.",
+    "achievements": "Réalisations clés :",
+    "technologies": "Technologies :"
+  },
+  "certifications": {
+    "title": "Certifications",
+    "subtitle": "Certifications professionnelles qui valident mon expertise en ingénierie data et technologies cloud.",
+    "skillsValidated": "Compétences validées :",
+    "verify": "Vérifier le certificat",
+    "credentialId": "ID :"
+  },
+  "work": {
+    "title": "Projets",
+    "subtitle": "Une sélection de projets illustrant mon expertise en ingénierie data, architecture cloud et DataOps.",
+    "keyFeatures": "Points clés :",
+    "technologies": "Technologies :",
+    "liveDemo": "Démo en ligne",
+    "code": "Code source",
+    "viewProject": "Voir le projet",
+    "professional": "Projet client",
+    "ctaTitle": "Intéressé par une collaboration ?",
+    "ctaText": "Je suis toujours enthousiaste à l'idée de travailler sur des projets data ambitieux. Discutons de ce que nous pouvons construire ensemble.",
+    "ctaButton": "Démarrer une conversation"
+  },
+  "contact": {
+    "title": "Travaillons ensemble",
+    "subtitle": "Prêt à discuter de votre prochain projet data ? Je suis toujours enthousiaste à l'idée de collaborer sur des solutions innovantes. Commençons une conversation.",
+    "formTitle": "Envoyer un message",
+    "name": "Nom",
+    "namePlaceholder": "Votre nom",
+    "email": "E-mail",
+    "emailPlaceholder": "votre.email@exemple.com",
+    "subject": "Objet",
+    "subjectPlaceholder": "Discussion projet, collaboration, etc.",
+    "message": "Message",
+    "messagePlaceholder": "Parlez-moi de votre projet, des défis que vous rencontrez ou de la façon dont nous pouvons travailler ensemble...",
+    "send": "Envoyer le message",
+    "sending": "Envoi en cours...",
+    "successTitle": "Message envoyé !",
+    "successMessage": "Merci pour votre message. Je vous répondrai rapidement.",
+    "errorTitle": "Erreur",
+    "errorMessage": "Échec de l'envoi du message. Veuillez réessayer.",
+    "rateLimitMessage": "Veuillez patienter une minute avant d'envoyer un autre message.",
+    "infoTitle": "Me contacter",
+    "ctaTitle": "Construisons quelque chose d'exceptionnel",
+    "ctaText": "Je suis passionné par la résolution de défis data complexes et j'aimerais en savoir plus sur votre projet. Que vous ayez besoin de conseil, de développement ou simplement d'échanger des idées, je suis là pour vous aider.",
+    "responseTitle": "Délai de réponse",
+    "responseText": "Je réponds généralement aux messages en moins de 24 heures. Pour les sujets urgents, n'hésitez pas à me contacter directement par téléphone ou LinkedIn."
+  }
+}

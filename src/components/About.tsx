@@ -1,12 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Database, Cloud, BarChart3, Cpu, Code, Zap , Laptop } from "lucide-react";
+import { Database, Cloud, BarChart3, Cpu, Code, Zap, Laptop } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import useIntersection from "@/hooks/use-intersection";
 
 const About = () => {
+  const { t } = useTranslation();
   const [skillsRef, skillsVisible] = useIntersection();
   const [strengthsRef, strengthsVisible] = useIntersection();
+
   const skills = [
-    
     { name: "Azure", level: 90, icon: Cloud },
     { name: "Data Visualization", level: 80, icon: BarChart3 },
     { name: "DataOps", level: 90, icon: Cpu },
@@ -16,53 +18,30 @@ const About = () => {
     { name: "SQL", level: 95, icon: Database },
   ];
 
+  const strengths = [
+    { icon: Database, titleKey: "about.strengthArchitectureTitle", textKey: "about.strengthArchitectureText" },
+    { icon: Zap, titleKey: "about.strengthRealtimeTitle", textKey: "about.strengthRealtimeText" },
+    { icon: BarChart3, titleKey: "about.strengthBiTitle", textKey: "about.strengthBiText" },
+  ];
+
   return (
     <section id="about" className="py-20 bg-gradient-light">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">About Me</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            I am an experienced Data Engineer and future Data Architect with over a decade of expertise in designing
-            and implementing end-to-end data and BI platforms. Certified and specialized in Microsoft technologies 
-            (on-premises and cloud), I help organizations build robust data pipelines, implement real-time analytics, 
-            and deliver insightful reporting to empower data-driven decision-making.
-
-            With strong expertise in DataOps practices using Azure DevOps, I ensure seamless integration, automated 
-            deployments, and continuous delivery for data solutions, enhancing reliability and scalability 
-            across the data lifecycle.
-
-            Passionate about turning complex data into actionable insights, I thrive in building scalable, automated, 
-            and high-performing solutions that deliver real business value.
-            </p>
+            <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">{t("about.title")}</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">{t("about.intro")}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-navy mb-4">My Journey</h3>
-              <p className="text-muted-foreground">
-              I started my career as a BI Developer, building reports and dashboards that transformed raw data into 
-              actionable insights. Along the way, I embraced DataOps practices, leveraging automation and Azure DevOps 
-              to streamline data workflows and implement CI/CD for data solutions.
-
-              This foundation led me to become a Tech Lead in Data, where I guided teams in developing modern data platforms 
-              and implementing best practices for scalability, performance, and governance.
-
-              Currently, I work as a Data Engineer, specializing in Microsoft technologies (on-premises and Azure cloud) 
-              to design and deploy end-to-end data and BI platforms, implement real-time analytics, and build robust data pipelines.
-
-              I am now focused on advancing toward my next goal: becoming a Data Architect, passionate about designing scalable, 
-              high-performing architectures that power data-driven decision-making.
-              </p>
-              <p className="text-muted-foreground">
-                My expertise spans across the entire data lifecycle - from ingestion and 
-                processing to storage and visualization. I'm particularly passionate about 
-                real-time data processing and implementing modern data stack solutions.
-              </p>
+              <h3 className="text-2xl font-bold text-navy mb-4">{t("about.journeyTitle")}</h3>
+              <p className="text-muted-foreground">{t("about.journey1")}</p>
+              <p className="text-muted-foreground">{t("about.journey2")}</p>
             </div>
 
             <div ref={skillsRef} className="bg-white rounded-2xl p-8 shadow-card">
-              <h3 className="text-xl font-bold text-navy mb-6">Technical Skills</h3>
+              <h3 className="text-xl font-bold text-navy mb-6">{t("about.skillsTitle")}</h3>
               <div className="space-y-4">
                 {skills.map((skill, index) => (
                   <div key={index} className="space-y-2">
@@ -80,7 +59,7 @@ const About = () => {
                           width: skillsVisible ? `${skill.level}%` : "0%",
                           transition: `width 1s ease-out ${index * 0.1}s`,
                         }}
-                      ></div>
+                      />
                     </div>
                   </div>
                 ))}
@@ -88,13 +67,8 @@ const About = () => {
             </div>
           </div>
 
-          {/* Key Strengths */}
           <div ref={strengthsRef} className="grid md:grid-cols-3 gap-8">
-            {[
-              { icon: Database, title: "Data Architecture", text: "Designing scalable and robust data architectures that grow with your business needs." },
-              { icon: Zap, title: "Real-time Processing", text: "Building high-performance streaming pipelines for real-time analytics and insights." },
-              { icon: BarChart3, title: "Business Intelligence & analytics", text: "Implementing Business Intelligence models and advanced analytics for data-driven insights that empower innovation and growth." },
-            ].map(({ icon: Icon, title, text }, index) => (
+            {strengths.map(({ icon: Icon, titleKey, textKey }, index) => (
               <Card
                 key={index}
                 className="text-center hover:shadow-hover transition-shadow duration-300 transform hover:-translate-y-2"
@@ -106,8 +80,8 @@ const About = () => {
               >
                 <CardContent className="p-8">
                   <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-navy mb-3">{title}</h3>
-                  <p className="text-muted-foreground">{text}</p>
+                  <h3 className="text-xl font-bold text-navy mb-3">{t(titleKey)}</h3>
+                  <p className="text-muted-foreground">{t(textKey)}</p>
                 </CardContent>
               </Card>
             ))}

@@ -1,10 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Calendar } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import useIntersection from "@/hooks/use-intersection";
 
 const Experience = () => {
+  const { t } = useTranslation();
   const [listRef, listVisible] = useIntersection();
+
   const experiences = [
     {
       title: "JUNIOR CLOUD DATA ARCHITECT – AZURE DATA ENGINEER",
@@ -21,7 +24,7 @@ const Experience = () => {
         "Wrote technical specifications",
         "Created release pipelines using Azure DevOps"
       ],
-      technologies: ["PYTHON", "MS FABRICS", "ADF", "SYNAPSE", "AZ DEVOPS", "AZ IA SEARCH" , "AZ SQL DB", "POSTMAN"]
+      technologies: ["PYTHON", "MS FABRICS", "ADF", "SYNAPSE", "AZ DEVOPS", "AZ IA SEARCH", "AZ SQL DB", "POSTMAN"]
     },
     {
       title: "TECH LEAD DATA MSBI – AZURE DATA ENGINEER – AZURE DATAOPS",
@@ -43,9 +46,9 @@ const Experience = () => {
         "Configured and monitor jobs and deadlocks",
         "Developed notebooks in Databricks",
         "Developed Power BI reports",
-        "Developed tabular cubes",
+        "Developed tabular cubes"
       ],
-      technologies: ["PYTHON", "SSIS", "SSRS", "ADF", "DOCKER", "DEVOPS", "SSAS", "POWER BI","TSQLT", "DATABRICKS", "SQL SERVER", "MYSQL", "SQLITE", "AZ SQL DB", "POSTMAN"]
+      technologies: ["PYTHON", "SSIS", "SSRS", "ADF", "DOCKER", "DEVOPS", "SSAS", "POWER BI", "TSQLT", "DATABRICKS", "SQL SERVER", "MYSQL", "SQLITE", "AZ SQL DB", "POSTMAN"]
     },
     {
       title: "SENIOR MSBI DEVELOPPER - AZURE DATA ENGINEER",
@@ -114,10 +117,8 @@ const Experience = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">Experience</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A journey through challenging projects and innovative solutions in the data engineering landscape.
-            </p>
+            <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">{t("experience.title")}</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("experience.subtitle")}</p>
           </div>
 
           <div ref={listRef} className="space-y-8">
@@ -152,11 +153,11 @@ const Experience = () => {
                   <p className="text-muted-foreground mb-6">{exp.description}</p>
 
                   <div className="mb-6">
-                    <h5 className="font-semibold text-navy mb-3">Key Achievements:</h5>
+                    <h5 className="font-semibold text-navy mb-3">{t("experience.achievements")}</h5>
                     <ul className="space-y-2">
                       {exp.achievements.map((achievement, idx) => (
                         <li key={idx} className="flex items-start space-x-2">
-                          <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                          <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
                           <span className="text-muted-foreground">{achievement}</span>
                         </li>
                       ))}
@@ -164,7 +165,7 @@ const Experience = () => {
                   </div>
 
                   <div>
-                    <h5 className="font-semibold text-navy mb-3">Technologies:</h5>
+                    <h5 className="font-semibold text-navy mb-3">{t("experience.technologies")}</h5>
                     <div className="flex flex-wrap gap-2">
                       {exp.technologies.map((tech, idx) => (
                         <Badge key={idx} variant="secondary" className="bg-blue-light text-navy">

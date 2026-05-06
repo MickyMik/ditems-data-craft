@@ -27,11 +27,18 @@ Sur mobile : remplacement par un overlay plein écran avec hamburger.
 
 **Sections navigables** : `about`, `experience`, `certifications`, `work`, `contact`
 
-**Dépendances** : `useTranslation` (i18n), Lucide (Download, Menu, X)
+**Dépendances** : `useTranslation` (i18n), `useActiveSection`, Lucide (Download, Menu, X)
+
+**Active section**
+- `useActiveSection(NAV_IDS)` — IntersectionObserver threshold 0.35 sur chaque section
+- Item actif : `text-primary` + point souligné animé (`w-4 h-0.5 bg-primary rounded-full`)
+
+**Sélecteur de langue**
+- Bouton toggle `FR` / `EN` visible dans la barre de navigation (desktop + mobile)
+- `i18n.changeLanguage()` au clic
 
 **Contraintes**
-- Lien CV en dur : GitHub raw URL (FR uniquement)
-- Pas de sélecteur de langue visible
+- Lien CV : GitHub raw URL, sélection FR/EN selon `i18n.language`
 
 ---
 
@@ -45,17 +52,20 @@ Section d'accroche plein écran. Fond gradient animé avec éléments flottants.
 **Composant** : `src/components/Hero.tsx`
 
 **Éléments**
-- H1 : `{t('hero.title')}` + `{t('hero.subtitle')}`
+- H1 : `{t('hero.title')}` + sous-titre avec effet typewriter (`useTypewriter`, 70ms/char, délai 900ms) + curseur clignotant `animate-blink`
 - Description : `{t('hero.description')}`
-- Bouton "Explore My Work" → scroll `#about`
-- Bouton "Get In Touch" → **non câblé** (ne scrolle pas vers Contact)
-- Liens sociaux : LinkedIn, GitHub, Email
-- Indicateur de scroll animé (bounce)
+- Bouton "Explore My Work" → scroll `#about` (`animate-pulse-glow`)
+- Bouton "Get In Touch" → scroll `#contact`
+- Bloc stats glassmorphism : 10+ années exp., 4 certifications, 6 entreprises (compteurs animés via `useCounter`, ease-out cubique)
+- 3 blobs animés `animate-float` en arrière-plan
+- Liens sociaux : LinkedIn (SVG inline), GitHub (SVG inline), Email
+- Indicateur de scroll animé (bounce), cliquable
 
-**Dépendances** : `useTranslation`, Lucide (ArrowDown, Github, Linkedin, Mail)
+**Dépendances** : `useTranslation`, `useTypewriter`, `useCounter`, `useIntersection`, Lucide (ArrowDown, Mail)
 
-**Contraintes / Dette**
-- Bouton "Get In Touch" non relié à `#contact` — bug connu
+**Icônes**
+- LinkedIn et GitHub : SVG inline (brand icons supprimées de lucide-react)
+- URL LinkedIn : `https://www.linkedin.com/in/john-michael-m-87177793/`
 
 ---
 
@@ -78,10 +88,13 @@ Azure (90%), Data Visualization (80%), DataOps (90%), Docker (90%), MS Fabrics (
 
 **Dépendances** : `useTranslation`, shadcn Card, Lucide
 
+**Animations**
+- `SectionTitle` : slide-up + underline grow au scroll
+- Barres de compétences : `useIntersection`, largeur 0% → niveau réel, stagger ×100ms
+- Cards strengths : fade-in + translateY stagger ×150ms
+
 **Contraintes / Dette**
-- Liens Credly invalides (`https://www.credly.com/badges/your-badge-id`)
-- Certifications preview ne correspondent pas aux certifications réelles de `Certifications.tsx`
-- Barres de compétences animées au scroll via `useIntersection` (largeur 0% → niveau réel, stagger par index)
+- Certifications preview (3 cards) ne correspondent pas aux certifications réelles de `Certifications.tsx` — incohérence persistante
 
 ---
 
@@ -102,9 +115,13 @@ Liste chronologique de 6 expériences professionnelles. Cards avec titre, entrep
 5. Confirmed MSBI Developer @ LA MUTUELLE FAMILIALE (09/2016 – 06/2018)
 6. Junior MSBI Developer @ LIEBHERR-MINING (01/2016 – 09/2016)
 
+**Timeline**
+- Ligne verticale animée : hauteur 0% → 100% au scroll (`timelineVisible`)
+- Dots circulaires : scale-in stagger par index
+- Cards : slide-in depuis la gauche + fade-in stagger ×120ms
+
 **Contraintes / Dette**
-- Données hardcodées en anglais (non traduit via i18n)
-- Animations au scroll implémentées via `useIntersection` (fade-in + slide-up staggeré)
+- Données hardcodées en anglais (non traduites via i18n)
 
 ---
 
@@ -123,31 +140,34 @@ Liste chronologique de 6 expériences professionnelles. Cards avec titre, entrep
 3. Implementing a Data Warehouse (70-767) — 2019
 4. Querying SQL Server 2012/2014 (70-461) — 2018
 
+**Animations**
+- `SectionTitle` + `TiltCard` (wrapper 3D, intensity=10) + `.shimmer-card` (sweep ::after)
+- Fade-in + translateY stagger ×120ms via `useIntersection`
+
 **Contraintes / Dette**
-- Pas de liens vers les badges Credly
-- Animations au scroll implémentées via `useIntersection` (fade-in + slide-up staggeré)
-- Données hardcodées en anglais
+- Données hardcodées en anglais (non traduites via i18n)
 
 ---
 
 ### Section Projets (Work)
 
-**Statut** : Existante (contenu placeholder)
+**Statut** : Existante (vrais projets)
 
 **Description**
-Galerie de 3 projets en grille 2 colonnes. Cards avec image, titre, description, features et technologies.
+Galerie de 3 projets en grille 2 colonnes. Cards avec bandeau gradient, titre, description, features, technologies et liens.
 
 **Composant** : `src/components/Work.tsx`
 
-**Projets actuels** — tous fictifs/placeholder
-1. Real-time Analytics Platform
-2. ML Pipeline Orchestrator
-3. Data Lake Architecture
+**Projets**
+1. **Ditems Portfolio** — ce site (public, lien demo + GitHub)
+2. **360° Customer Intelligence Platform** — HAGER GROUP (NDA, badge "Client Project", icône cadenas)
+3. **Hybrid Data Platform Modernization** — VIDAL GROUP (NDA, badge "Client Project", icône cadenas)
 
-**Contraintes / Dette**
-- Projets fictifs — à remplacer par de vrais projets personnels
-- Images : `/api/placeholder/400/250` — non réelles
-- Liens "Live Demo" et "Code" → `#` — non fonctionnels
+**Animations**
+- `SectionTitle` + `TiltCard` (intensity=6) + `.shimmer-card`
+- Fade-in + translateY stagger ×150ms via `useIntersection`
+
+**CTA bas de page** : card gradient avec bouton "Let's Work Together" → scroll `#contact`
 
 ---
 
@@ -162,7 +182,7 @@ Layout 2 colonnes : formulaire + informations de contact.
 **Composant** : `src/components/Contact.tsx`
 
 **Backend**
-Aucune API. Envoi direct depuis le navigateur via `emailjs-com`.
+Aucune API. Envoi direct depuis le navigateur via `@emailjs/browser`.
 - Service ID : `service_t6so8r5`
 - Template ID : `template_meqf9bp`
 - Public Key : `IobH6oMwMiIETnEVh`
@@ -184,15 +204,20 @@ Aucune API. Envoi direct depuis le navigateur via `emailjs-com`.
 
 **Sécurité**
 - Validation Zod côté client
-- Rate limiting localStorage (contournable)
-- `security.ts` disponible mais **non utilisé** dans Contact.tsx
+- Rate limiting `checkRateLimit()` / `setRateLimit()` via `security.ts` (localStorage, 60s)
+- Sanitisation : `sanitizeInput()` sur tous les champs avant envoi
+
+**État succès**
+- Après envoi réussi : affichage inline d'un état succès (CheckCircle2, animation slide-up `count-up`)
+- Bouton pour réinitialiser et renvoyer un message
+
+**Layout**
+- `SectionTitle` (prop `light=true`) sur fond `bg-gradient-hero`
+- Card informations de contact + card "Disponibilité" (réponse sous 24h)
 
 **Contraintes / Dette**
-- `emailjs-com` déprécié (remplacé par `@emailjs/browser`)
-- Clés hardcodées (acceptables pour EmailJS, mais dette organisationnelle)
-- `security.ts` non intégré
+- Clés EmailJS hardcodées (acceptables pour EmailJS, conçu client-side)
 - Pas de protection anti-bot (honeypot absent)
-- Textes non traduits via i18n
 
 ---
 
@@ -233,12 +258,13 @@ Support FR/EN via i18next avec détection automatique de la langue du navigateur
 **Cache** : `localStorage`
 **Fallback** : anglais
 
-**Composants traduits** : Header, Hero, About (partiellement)
-**Non traduits** : Experience, Certifications, Work, Contact
+**Composants traduits** : Header, Hero, About, Experience (labels), Certifications (labels), Work (labels), Contact
+**Non traduits** : données structurelles (intitulés de postes, descriptions de projets, réalisations — hardcodées en anglais)
+
+**Sélecteur de langue** : bouton toggle FR/EN dans le Header (desktop + mobile)
 
 **Contraintes / Dette**
-- Pas de sélecteur de langue dans l'UI
-- Données structurelles hardcodées en anglais
+- Données structurelles hardcodées en anglais (postes, projets, certifications)
 
 ---
 
@@ -255,10 +281,10 @@ Error Boundary React global wrappant toute l'application. Affiche une UI de fall
 
 ### Utilitaires de sécurité
 
-**Statut** : Existante (non intégrés)
+**Statut** : Existante (intégrée)
 
 **Description**
-Fonctions de sécurité côté client disponibles mais non utilisées dans Contact.tsx.
+Fonctions de sécurité côté client utilisées dans Contact.tsx.
 
 **Fichier** : `src/utils/security.ts`
 
@@ -270,8 +296,58 @@ Fonctions de sécurité côté client disponibles mais non utilisées dans Conta
 - `isValidUrl()` — validation protocoles autorisés
 - `createSecureLink()` — génération attributs `rel`/`target` sécurisés
 
-**Contraintes / Dette**
-- Non utilisés dans Contact.tsx (doublon partiel avec Zod)
+---
+
+---
+
+### Barre de progression scroll (ScrollProgress)
+
+**Statut** : Existante
+
+**Description**
+Barre fine (3px) fixée en haut de page, affichant la progression du scroll de 0% à 100%.
+
+**Composant** : `src/components/ScrollProgress.tsx`
+
+**Comportement**
+- Calcul : `scrollY / (scrollHeight - innerHeight) * 100`
+- Style : gradient primary → blue-bright, z-index 9999, transition fluide
+
+---
+
+### Titre de section animé (SectionTitle)
+
+**Statut** : Existante
+
+**Description**
+Composant réutilisable pour les titres de section. Slide-up au scroll + underline grow.
+
+**Composant** : `src/components/SectionTitle.tsx`
+
+**Props**
+- `text` : texte du h2
+- `subtitle?` : sous-titre optionnel
+- `light?` : mode clair (texte blanc, underline blue-light) pour fonds sombres
+
+**Utilisé dans** : About, Experience, Certifications, Work, Contact
+
+---
+
+### Carte 3D tilt (TiltCard)
+
+**Statut** : Existante
+
+**Description**
+Wrapper qui applique un effet de perspective 3D (rotateX/Y) au survol de la souris.
+
+**Composant** : `src/components/TiltCard.tsx`
+
+**Props**
+- `intensity?` : amplitude de rotation en degrés (défaut : 10)
+- `style?` : styles inline passés au div wrapper (pour animations staggerées)
+- `className?` : classes CSS additionnelles
+
+**Utilisé dans** : Certifications, Work
 
 ---
 
@@ -303,59 +379,49 @@ Provider envisagé : Anthropic Claude API avec streaming SSE.
 
 ---
 
-### Sélecteur de langue visible
+### ~~Sélecteur de langue visible~~ — Implémenté
+
+**Statut** : ~~Planifié~~ → **Existant** (voir section Header)
+
+---
+
+### ~~Vrais projets dans Work~~ — Implémenté
+
+**Statut** : ~~Planifié~~ → **Existant** (voir section Work)
+
+---
+
+### ~~Liens Credly valides~~ — Implémenté
+
+**Statut** : ~~Planifié~~ → **Existant** (voir section Certifications)
+
+---
+
+### ~~Animations scroll (Intersection Observer)~~ — Implémenté
+
+**Statut** : ~~Planifié~~ → **Existant** (tous les composants animés)
+
+---
+
+### ~~Version EN du CV PDF~~ — Implémenté
+
+**Statut** : ~~Partiellement~~ → **Existant** (`resume/CV_METINHOUE_EN.pdf` présent)
+
+---
+
+### Chat IA contextualisé
 
 **Statut** : Planifié
 
 **Description**
-Switcher FR/EN visible dans le Header permettant à l'utilisateur de changer manuellement la langue.
+Assistant conversationnel IA basé sur le profil CV de Michael. Répond aux questions des visiteurs sur les compétences, l'expérience et la disponibilité.
 
-**Impacte** : `Header.tsx`, `i18n/locales/*.json`
+**Backend**
+Aucune API actuellement. Prévoir route `/api/chat` (serverless). Provider : Anthropic Claude API avec streaming SSE.
+
+**Frontend**
+- Composant `ChatPanel.tsx` (à créer)
+- Bouton d'ouverture dans le header ou en floating
 
 **Contraintes**
-- Nécessite de traduire les données structurelles (expériences, certifs, projets) avant activation complète
-
----
-
-### Vrais projets dans Work
-
-**Statut** : Planifié
-
-**Description**
-Remplacer les 3 projets placeholder par de vrais projets avec images réelles et liens fonctionnels.
-
-**Impacte** : `Work.tsx`
-
----
-
-### Liens Credly valides
-
-**Statut** : Planifié
-
-**Description**
-Remplacer les URLs Credly placeholder par les vraies URLs des badges de certification.
-
-**Impacte** : `About.tsx`
-
----
-
-### Animations scroll (Intersection Observer)
-
-**Statut** : Planifié
-
-**Description**
-Révélation des sections et animation des barres de compétences au scroll.
-
-**Impacte** : `About.tsx`, `Experience.tsx`, `Certifications.tsx`, `Work.tsx`
-
----
-
-### Version EN du CV PDF
-
-**Statut** : Partiellement implémenté — en attente du fichier PDF
-
-**Description**
-La logique de sélection de langue est en place dans `FloatingDownload.tsx` et `Header.tsx` (via `navigator.language`).
-Il reste à ajouter `CV_METINHOUE_EN.pdf` dans `resume/` pour activer complètement la fonctionnalité.
-
-**Impacte** : `resume/` (fichier PDF à ajouter)
+- Streaming SSE, historique 20 messages max, rate limiting serveur, prompt système depuis CV

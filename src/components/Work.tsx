@@ -142,22 +142,6 @@ const Work = () => {
             ))}
           </div>
 
-          <div className="text-center mt-16">
-            <Card className="max-w-2xl mx-auto bg-gradient-primary text-white">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-4">{t("work.ctaTitle")}</h3>
-                <p className="mb-6 text-blue-light">{t("work.ctaText")}</p>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-white text-white hover:bg-white hover:text-navy"
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                >
-                  {t("work.ctaButton")}
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </div>
     </section>

@@ -97,9 +97,9 @@ Voir `features.md` — section "Fonctionnalités existantes".
 | # | Problème | Composant |
 |---|---|---|
 | 1 | Projets fictifs (placeholder) | `Work.tsx` |
-| ~~2~~ | ~~Liens Credly invalides~~ — **Résolu** | `Certifications.tsx` |
+| ~~2~~ | ~~Liens de vérification invalides~~ — **Résolu** | `Certifications.tsx` |
 | 3 | Bouton "Get In Touch" non relié à `#contact` | `Hero.tsx` |
-| 4 | `emailjs-com` déprécié (remplacer par `@emailjs/browser`) | `Contact.tsx` |
+| ~~4~~ | ~~`emailjs-com` déprécié~~ — **Résolu** | `Contact.tsx` |
 | 5 | CV uniquement en français | `FloatingDownload.tsx`, `Header.tsx` |
 | 6 | i18n incomplète (Experience, Certifications, Work, Contact non traduits) | Multiples |
 | 7 | Pas de sélecteur de langue dans l'UI | `Header.tsx` |
@@ -189,6 +189,27 @@ Les deux se déclenchaient en parallèle sur chaque push sur `main`.
   - Permissions correctes : `pages: write` + `id-token: write`
   - Actions mises à jour : `checkout@v4`, `setup-node@v4` (Node 20), `configure-pages@v5`, `upload-pages-artifact@v3`
   - Suppression de `peaceiris/actions-gh-pages@v3`
+
+---
+
+## 2026-05-05 — Migration emailjs-com → @emailjs/browser + lien DP-203
+
+### Contexte
+- `emailjs-com@3.2.0` était déprécié et absent du `package-lock.json` résolu, causant des échecs intermittents sur CI.
+- L'URL de vérification DP-203 (Microsoft Learn) a été fournie.
+
+### Changements
+- **Modifié** : `package.json` + `package-lock.json` — `emailjs-com` remplacé par `@emailjs/browser`
+- **Modifié** : `src/components/Contact.tsx` — import `@emailjs/browser` (API identique, aucune autre modification nécessaire)
+- **Modifié** : `vite.config.ts` — suppression du bloc `optimizeDeps: { include: ["emailjs-com"] }` devenu inutile
+- **Modifié** : `src/components/Certifications.tsx` — `credentialUrl` DP-203 renseigné (Microsoft Learn)
+
+### Build
+`✓ built in 5.33s` — aucune régression.
+
+### Impact sur la dette technique
+- Résolu : dette #4 (`emailjs-com` déprécié)
+- Résolu : dette #2 DP-203 — lien de vérification désormais complet (Microsoft Learn au lieu de Credly)
 
 ---
 

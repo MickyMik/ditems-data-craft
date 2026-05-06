@@ -8,7 +8,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 
 // ✅ EmailJS Configuration (Replace with your actual IDs)
 const SERVICE_ID = "service_t6so8r5"; // Remplace par ton Service ID EmailJS

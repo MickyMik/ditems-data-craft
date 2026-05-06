@@ -3,10 +3,11 @@ import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 
 const Hero = () => {
   const scrollToAbout = () => {
-    const aboutSection = document.getElementById("about");
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: "smooth" });
-    }
+    document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToContact = () => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -34,7 +35,7 @@ const Hero = () => {
               Explore My Work
               <ArrowDown className="w-5 h-5 animate-bounce" />
             </Button>
-            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-navy">
+            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-navy" onClick={scrollToContact}>
               <Mail className="w-5 h-5" />
               Get In Touch
             </Button>
